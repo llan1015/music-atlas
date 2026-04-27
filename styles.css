@@ -243,7 +243,7 @@ a:hover { text-decoration: underline; }
   text-decoration: none;
 }
 .wiki-link-inline::after {
-  content: " â†—";
+  content: " ↗";
   font-size: .75em;
   opacity: .5;
 }
