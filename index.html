@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Atlas · 全球音乐分类与发展史</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://en.wikipedia.org" />
+  <link rel="preconnect" href="https://musicbrainz.org" />
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Music Atlas</h1>
+      <span class="subtitle">全球音乐分类·发展史·影响力</span>
+    </div>
+    <div class="controls">
+      <input id="search" type="search" placeholder="搜索流派 / 艺术家 / 关键词..." aria-label="搜索" />
+      <select id="region-filter" aria-label="按地区筛选">
+        <option value="">所有地区</option>
+      </select>
+      <select id="status-filter" aria-label="按状态筛选">
+        <option value="">所有状态</option>
+        <option value="active">仍在流行</option>
+        <option value="historical-active">历史 · 仍在演奏</option>
+        <option value="historical-influential">历史 · 影响深远</option>
+        <option value="niche-revival">小众 / 复兴中</option>
+        <option value="obsolete">已废止</option>
+      </select>
+      <div class="era-filter" aria-label="年代筛选">
+        <label>年代</label>
+        <input id="era-start" type="number" value="-500" step="10" />
+        <span>—</span>
+        <input id="era-end" type="number" value="2026" step="10" />
+      </div>
+      <button id="reset-filters" type="button">重置</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" id="sidebar">
+      <nav id="tree" aria-label="流派树"></nav>
+      <p class="counts" id="counts"></p>
+    </aside>
+
+    <section class="detail" id="detail" aria-live="polite">
+      <div class="empty-state">从左侧选择一个流派以查看详情。</div>
+    </section>
+
+    <section class="map-panel">
+      <div class="map-header">
+        <h2>影响力地图</h2>
+        <span id="map-legend" class="map-legend"></span>
+      </div>
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>数据来源 · 自维护 + Wikipedia + MusicBrainz</span>
+    <span>·</span>
+    <span>地图 © Natural Earth via world-atlas</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

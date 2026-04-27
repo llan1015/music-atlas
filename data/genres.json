@@ -1,0 +1,1034 @@
+{
+  "categories": [
+    { "id": "classical",  "name": "Classical & Art Music",  "nameZh": "古典与艺术音乐" },
+    { "id": "folk",       "name": "Folk & Traditional",     "nameZh": "民间与传统" },
+    { "id": "jazz",       "name": "Jazz",                   "nameZh": "爵士乐" },
+    { "id": "blues",      "name": "Blues",                  "nameZh": "布鲁斯" },
+    { "id": "country",    "name": "Country",                "nameZh": "乡村音乐" },
+    { "id": "rock",       "name": "Rock",                   "nameZh": "摇滚" },
+    { "id": "pop",        "name": "Pop",                    "nameZh": "流行" },
+    { "id": "rnb",        "name": "R&B & Soul",             "nameZh": "节奏布鲁斯与灵魂乐" },
+    { "id": "hiphop",     "name": "Hip-Hop",                "nameZh": "嘻哈" },
+    { "id": "electronic", "name": "Electronic",             "nameZh": "电子" },
+    { "id": "latin",      "name": "Latin & Caribbean",      "nameZh": "拉美与加勒比" },
+    { "id": "african",    "name": "African Popular",        "nameZh": "非洲流行" },
+    { "id": "obsolete",   "name": "Obsolete & Historical",  "nameZh": "已废止与历史" }
+  ],
+  "genres": [
+    {
+      "id": "gregorian-chant", "name": "Gregorian Chant", "nameZh": "格里高利圣咏",
+      "category": "classical", "era": { "start": 800, "end": 1500 },
+      "status": "historical-active", "originRegion": "western-europe", "originCountry": "Italy",
+      "spreadRegions": ["western-europe","southern-europe","northern-europe"],
+      "influenceReach": 7, "wikipediaTitle": "Gregorian_chant", "mbTag": "gregorian chant",
+      "summary": "单声部、自由节奏的拉丁文教会音乐，西方记谱法和复调的根源。",
+      "artists": [
+        { "name": "Solesmes Abbey Choir", "work": "Gregorian Chant Repertoire" },
+        { "name": "Pope Gregory I (attrib.)", "work": "Liber Usualis (传承)" }
+      ]
+    },
+    {
+      "id": "ars-nova", "name": "Ars Nova", "nameZh": "新艺术",
+      "category": "classical", "era": { "start": 1310, "end": 1377 },
+      "status": "historical-influential", "originRegion": "western-europe", "originCountry": "France",
+      "spreadRegions": ["western-europe","southern-europe"],
+      "influenceReach": 6, "wikipediaTitle": "Ars_nova", "mbTag": "ars nova",
+      "summary": "14 世纪法国为主的复调革新，引入更精细的节奏记谱与世俗题材。",
+      "artists": [
+        { "name": "Guillaume de Machaut", "work": "Messe de Nostre Dame (c.1365)" },
+        { "name": "Philippe de Vitry", "work": "Roman de Fauvel motets" }
+      ]
+    },
+    {
+      "id": "renaissance-music", "name": "Renaissance Music", "nameZh": "文艺复兴音乐",
+      "category": "classical", "era": { "start": 1400, "end": 1600 },
+      "status": "historical-influential", "originRegion": "western-europe", "originCountry": "Belgium",
+      "spreadRegions": ["western-europe","southern-europe","northern-europe"],
+      "influenceReach": 7, "wikipediaTitle": "Renaissance_music", "mbTag": "renaissance",
+      "summary": "弗兰德乐派主导的复调全盛期，奠定西方调性与声部写作。",
+      "artists": [
+        { "name": "Josquin des Prez", "work": "Missa Pange lingua" },
+        { "name": "Giovanni Pierluigi da Palestrina", "work": "Missa Papae Marcelli" },
+        { "name": "Thomas Tallis", "work": "Spem in alium" }
+      ]
+    },
+    {
+      "id": "baroque-music", "name": "Baroque Music", "nameZh": "巴洛克音乐",
+      "category": "classical", "era": { "start": 1600, "end": 1750 },
+      "status": "historical-active", "originRegion": "southern-europe", "originCountry": "Italy",
+      "spreadRegions": ["western-europe","southern-europe","northern-europe","eastern-europe"],
+      "influenceReach": 9, "wikipediaTitle": "Baroque_music", "mbTag": "baroque",
+      "summary": "数字低音、调性体系、协奏曲与歌剧形式确立的时代。",
+      "artists": [
+        { "name": "Johann Sebastian Bach", "work": "Mass in B minor BWV 232 (1749)" },
+        { "name": "George Frideric Handel", "work": "Messiah (1741)" },
+        { "name": "Antonio Vivaldi", "work": "The Four Seasons (1725)" },
+        { "name": "Claudio Monteverdi", "work": "L'Orfeo (1607)" }
+      ]
+    },
+    {
+      "id": "classical-period", "name": "Classical Period", "nameZh": "古典主义时期",
+      "category": "classical", "era": { "start": 1730, "end": 1820 },
+      "status": "historical-active", "originRegion": "western-europe", "originCountry": "Austria",
+      "spreadRegions": ["western-europe","southern-europe","northern-europe","eastern-europe"],
+      "influenceReach": 10, "wikipediaTitle": "Classical_period_(music)", "mbTag": "classical",
+      "summary": "维也纳乐派确立奏鸣曲式、交响曲与四重奏的标准形式。",
+      "artists": [
+        { "name": "Wolfgang Amadeus Mozart", "work": "Don Giovanni (1787)" },
+        { "name": "Joseph Haydn", "work": "The Creation (1798)" },
+        { "name": "Ludwig van Beethoven", "work": "Symphony No. 9 (1824)" }
+      ]
+    },
+    {
+      "id": "romantic-music", "name": "Romantic Music", "nameZh": "浪漫主义音乐",
+      "category": "classical", "era": { "start": 1800, "end": 1910 },
+      "status": "historical-active", "originRegion": "western-europe", "originCountry": "Germany",
+      "spreadRegions": ["western-europe","eastern-europe","northern-europe","southern-europe","north-america"],
+      "influenceReach": 10, "wikipediaTitle": "Romantic_music", "mbTag": "romantic",
+      "summary": "情感扩张、和声半音化、民族乐派兴起的时代。",
+      "artists": [
+        { "name": "Frédéric Chopin", "work": "Ballade No. 1 (1836)" },
+        { "name": "Richard Wagner", "work": "Tristan und Isolde (1865)" },
+        { "name": "Pyotr Ilyich Tchaikovsky", "work": "Symphony No. 6 (1893)" },
+        { "name": "Gustav Mahler", "work": "Symphony No. 2 (1894)" }
+      ]
+    },
+    {
+      "id": "serialism", "name": "Serialism", "nameZh": "序列主义",
+      "category": "classical", "era": { "start": 1921, "end": 1980 },
+      "status": "niche-revival", "originRegion": "western-europe", "originCountry": "Austria",
+      "spreadRegions": ["western-europe","north-america"],
+      "influenceReach": 6, "wikipediaTitle": "Serialism", "mbTag": "serialism",
+      "summary": "勋伯格创立的十二音技法，二战后扩展至所有音乐参数。",
+      "artists": [
+        { "name": "Arnold Schoenberg", "work": "Variations for Orchestra Op.31 (1928)" },
+        { "name": "Anton Webern", "work": "Symphony Op.21 (1928)" },
+        { "name": "Pierre Boulez", "work": "Le Marteau sans maître (1955)" }
+      ]
+    },
+    {
+      "id": "minimalism-music", "name": "Minimalism", "nameZh": "极简主义",
+      "category": "classical", "era": { "start": 1960, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia"],
+      "influenceReach": 8, "wikipediaTitle": "Minimal_music", "mbTag": "minimalism",
+      "summary": "重复音型、稳定脉动与渐进过程，对电影/电子音乐影响深远。",
+      "artists": [
+        { "name": "Steve Reich", "work": "Music for 18 Musicians (1976)" },
+        { "name": "Philip Glass", "work": "Einstein on the Beach (1976)" },
+        { "name": "Terry Riley", "work": "In C (1964)" }
+      ]
+    },
+
+    {
+      "id": "appalachian-folk", "name": "Appalachian Folk", "nameZh": "阿巴拉契亚民谣",
+      "category": "folk", "era": { "start": 1700, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america"],
+      "influenceReach": 6, "wikipediaTitle": "Appalachian_music", "mbTag": "appalachian",
+      "summary": "苏格兰-爱尔兰民谣与非裔节奏融合，乡村乐与蓝草的根源。",
+      "artists": [
+        { "name": "The Carter Family", "work": "Wildwood Flower (1928)" },
+        { "name": "Doc Watson", "work": "Black Mountain Rag" }
+      ]
+    },
+    {
+      "id": "celtic-music", "name": "Celtic Music", "nameZh": "凯尔特音乐",
+      "category": "folk", "era": { "start": 1600, "end": null },
+      "status": "active", "originRegion": "western-europe", "originCountry": "Ireland",
+      "spreadRegions": ["western-europe","north-america","oceania"],
+      "influenceReach": 7, "wikipediaTitle": "Celtic_music", "mbTag": "celtic",
+      "summary": "爱尔兰、苏格兰、布列塔尼等凯尔特地区的传统音乐统称。",
+      "artists": [
+        { "name": "The Chieftains", "work": "The Long Black Veil (1995)" },
+        { "name": "Planxty", "work": "Planxty (1973)" },
+        { "name": "Alan Stivell", "work": "Renaissance of the Celtic Harp (1971)" }
+      ]
+    },
+    {
+      "id": "flamenco", "name": "Flamenco", "nameZh": "弗拉门戈",
+      "category": "folk", "era": { "start": 1780, "end": null },
+      "status": "active", "originRegion": "southern-europe", "originCountry": "Spain",
+      "spreadRegions": ["southern-europe","latin-america","north-america"],
+      "influenceReach": 8, "wikipediaTitle": "Flamenco", "mbTag": "flamenco",
+      "summary": "源于安达卢西亚的吉普赛-摩尔-犹太混血艺术，吉他、歌声与舞蹈。",
+      "artists": [
+        { "name": "Paco de Lucía", "work": "Entre dos aguas (1976)" },
+        { "name": "Camarón de la Isla", "work": "La leyenda del tiempo (1979)" }
+      ]
+    },
+    {
+      "id": "fado", "name": "Fado", "nameZh": "法多",
+      "category": "folk", "era": { "start": 1820, "end": null },
+      "status": "active", "originRegion": "southern-europe", "originCountry": "Portugal",
+      "spreadRegions": ["southern-europe","latin-america"],
+      "influenceReach": 5, "wikipediaTitle": "Fado", "mbTag": "fado",
+      "summary": "葡萄牙城市民歌，2011 年入选 UNESCO 非遗，主题为命运与乡愁。",
+      "artists": [
+        { "name": "Amália Rodrigues", "work": "Estranha Forma de Vida" },
+        { "name": "Mariza", "work": "Fado em Mim (2002)" }
+      ]
+    },
+    {
+      "id": "klezmer", "name": "Klezmer", "nameZh": "克莱兹默",
+      "category": "folk", "era": { "start": 1500, "end": null },
+      "status": "niche-revival", "originRegion": "eastern-europe", "originCountry": "Poland",
+      "spreadRegions": ["eastern-europe","north-america","middle-east"],
+      "influenceReach": 6, "wikipediaTitle": "Klezmer", "mbTag": "klezmer",
+      "summary": "东欧阿什肯纳兹犹太人庆典音乐，1970 年代在美国复兴。",
+      "artists": [
+        { "name": "Naftule Brandwein", "work": "Firn di Mekhutonim Aheym" },
+        { "name": "The Klezmatics", "work": "Rhythm + Jews (1992)" }
+      ]
+    },
+    {
+      "id": "gamelan", "name": "Gamelan", "nameZh": "甘美兰",
+      "category": "folk", "era": { "start": 800, "end": null },
+      "status": "active", "originRegion": "southeast-asia", "originCountry": "Indonesia",
+      "spreadRegions": ["southeast-asia","western-europe","north-america"],
+      "influenceReach": 7, "wikipediaTitle": "Gamelan", "mbTag": "gamelan",
+      "summary": "爪哇与巴厘的合奏铜乐，启发德彪西、Reich、电子音乐。",
+      "artists": [
+        { "name": "Gamelan Sekar Jaya", "work": "Balinese Gamelan Repertoire" },
+        { "name": "STSI Surakarta", "work": "Court Gamelan recordings" }
+      ]
+    },
+    {
+      "id": "hindustani-classical", "name": "Hindustani Classical", "nameZh": "印度斯坦古典",
+      "category": "folk", "era": { "start": 1200, "end": null },
+      "status": "active", "originRegion": "south-asia", "originCountry": "India",
+      "spreadRegions": ["south-asia","western-europe","north-america"],
+      "influenceReach": 8, "wikipediaTitle": "Hindustani_classical_music", "mbTag": "hindustani",
+      "summary": "北印度古典传统，以拉格(raga)和塔拉(tala)为核心的即兴艺术。",
+      "artists": [
+        { "name": "Ravi Shankar", "work": "Raga Jog (1956)" },
+        { "name": "Ali Akbar Khan", "work": "Master Musician of India (1965)" },
+        { "name": "Hariprasad Chaurasia", "work": "Call of the Valley (1967)" }
+      ]
+    },
+    {
+      "id": "carnatic-music", "name": "Carnatic Music", "nameZh": "卡纳提克音乐",
+      "category": "folk", "era": { "start": 1300, "end": null },
+      "status": "active", "originRegion": "south-asia", "originCountry": "India",
+      "spreadRegions": ["south-asia"],
+      "influenceReach": 6, "wikipediaTitle": "Carnatic_music", "mbTag": "carnatic",
+      "summary": "南印度古典传统，强调声乐与三巨匠 (Tyagaraja 等) 的奉爱诗作。",
+      "artists": [
+        { "name": "M. S. Subbulakshmi", "work": "Suprabhatam" },
+        { "name": "T. M. Krishna", "work": "Modern Carnatic recitals" }
+      ]
+    },
+    {
+      "id": "chinese-traditional", "name": "Chinese Traditional", "nameZh": "中国民乐",
+      "category": "folk", "era": { "start": -500, "end": null },
+      "status": "active", "originRegion": "east-asia", "originCountry": "China",
+      "spreadRegions": ["east-asia","southeast-asia"],
+      "influenceReach": 7, "wikipediaTitle": "Music_of_China", "mbTag": "chinese traditional",
+      "summary": "涵盖宫廷雅乐、文人琴乐、戏曲与民间器乐的多元传统体系。",
+      "artists": [
+        { "name": "刘天华", "work": "光明行 (1931)" },
+        { "name": "阿炳 (华彦钧)", "work": "二泉映月 (1950)" },
+        { "name": "Yo-Yo Ma & Silk Road Ensemble", "work": "Sing Me Home (2016)" }
+      ]
+    },
+    {
+      "id": "mariachi", "name": "Mariachi", "nameZh": "马里亚奇",
+      "category": "folk", "era": { "start": 1850, "end": null },
+      "status": "active", "originRegion": "latin-america", "originCountry": "Mexico",
+      "spreadRegions": ["latin-america","north-america"],
+      "influenceReach": 7, "wikipediaTitle": "Mariachi", "mbTag": "mariachi",
+      "summary": "墨西哥哈利斯科州起源的弦乐合奏，2011 年入选 UNESCO 非遗。",
+      "artists": [
+        { "name": "Mariachi Vargas de Tecalitlán", "work": "El Son de la Negra" },
+        { "name": "Vicente Fernández", "work": "El Rey (1973)" }
+      ]
+    },
+
+    {
+      "id": "ragtime", "name": "Ragtime", "nameZh": "拉格泰姆",
+      "category": "jazz", "era": { "start": 1895, "end": 1919 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 7, "wikipediaTitle": "Ragtime", "mbTag": "ragtime",
+      "summary": "切分节奏的钢琴音乐，爵士的前身。",
+      "artists": [
+        { "name": "Scott Joplin", "work": "Maple Leaf Rag (1899)" },
+        { "name": "Joseph Lamb", "work": "American Beauty Rag (1913)" }
+      ]
+    },
+    {
+      "id": "dixieland", "name": "Dixieland / New Orleans Jazz", "nameZh": "迪克西兰",
+      "category": "jazz", "era": { "start": 1910, "end": 1928 },
+      "status": "niche-revival", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 8, "wikipediaTitle": "Dixieland", "mbTag": "dixieland",
+      "summary": "新奥尔良集体即兴的早期爵士，铜管前线为标志。",
+      "artists": [
+        { "name": "Louis Armstrong", "work": "West End Blues (1928)" },
+        { "name": "Jelly Roll Morton", "work": "Black Bottom Stomp (1926)" },
+        { "name": "King Oliver", "work": "Dipper Mouth Blues (1923)" }
+      ]
+    },
+    {
+      "id": "swing", "name": "Swing", "nameZh": "摇摆乐",
+      "category": "jazz", "era": { "start": 1930, "end": 1945 },
+      "status": "historical-active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "Swing_music", "mbTag": "swing",
+      "summary": "大乐队主导的舞厅爵士，二战时期全球流行。",
+      "artists": [
+        { "name": "Duke Ellington", "work": "Take the 'A' Train (1941)" },
+        { "name": "Count Basie", "work": "One O'Clock Jump (1937)" },
+        { "name": "Benny Goodman", "work": "Sing, Sing, Sing (1937)" }
+      ]
+    },
+    {
+      "id": "bebop", "name": "Bebop", "nameZh": "比波普",
+      "category": "jazz", "era": { "start": 1940, "end": 1955 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "Bebop", "mbTag": "bebop",
+      "summary": "高速、和声复杂、强调个人即兴的现代爵士范式。",
+      "artists": [
+        { "name": "Charlie Parker", "work": "Ko-Ko (1945)" },
+        { "name": "Dizzy Gillespie", "work": "A Night in Tunisia (1942)" },
+        { "name": "Thelonious Monk", "work": "'Round Midnight" },
+        { "name": "Bud Powell", "work": "Un Poco Loco (1951)" }
+      ]
+    },
+    {
+      "id": "cool-jazz", "name": "Cool Jazz", "nameZh": "冷爵士",
+      "category": "jazz", "era": { "start": 1949, "end": 1965 },
+      "status": "historical-active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 8, "wikipediaTitle": "Cool_jazz", "mbTag": "cool jazz",
+      "summary": "对比波普的克制回应，柔和音色与编曲意识。",
+      "artists": [
+        { "name": "Miles Davis", "work": "Birth of the Cool (1957)" },
+        { "name": "Chet Baker", "work": "Chet Baker Sings (1956)" },
+        { "name": "Dave Brubeck", "work": "Time Out (1959)" }
+      ]
+    },
+    {
+      "id": "free-jazz", "name": "Free Jazz", "nameZh": "自由爵士",
+      "category": "jazz", "era": { "start": 1959, "end": 1975 },
+      "status": "niche-revival", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 7, "wikipediaTitle": "Free_jazz", "mbTag": "free jazz",
+      "summary": "抛弃固定调式与拍子的集体即兴，与民权运动同步。",
+      "artists": [
+        { "name": "Ornette Coleman", "work": "The Shape of Jazz to Come (1959)" },
+        { "name": "John Coltrane", "work": "Ascension (1965)" },
+        { "name": "Albert Ayler", "work": "Spiritual Unity (1964)" }
+      ]
+    },
+    {
+      "id": "jazz-fusion", "name": "Jazz Fusion", "nameZh": "融合爵士",
+      "category": "jazz", "era": { "start": 1969, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia"],
+      "influenceReach": 8, "wikipediaTitle": "Jazz_fusion", "mbTag": "jazz fusion",
+      "summary": "爵士与摇滚、放克、电子合流，电声乐器成为常态。",
+      "artists": [
+        { "name": "Miles Davis", "work": "Bitches Brew (1970)" },
+        { "name": "Weather Report", "work": "Heavy Weather (1977)" },
+        { "name": "Mahavishnu Orchestra", "work": "The Inner Mounting Flame (1971)" }
+      ]
+    },
+
+    {
+      "id": "delta-blues", "name": "Delta Blues", "nameZh": "三角洲布鲁斯",
+      "category": "blues", "era": { "start": 1900, "end": 1940 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america"],
+      "influenceReach": 9, "wikipediaTitle": "Delta_blues", "mbTag": "delta blues",
+      "summary": "密西西比三角洲的吉他/口琴布鲁斯，所有摇滚的源头。",
+      "artists": [
+        { "name": "Robert Johnson", "work": "Cross Road Blues (1936)" },
+        { "name": "Son House", "work": "Death Letter (1965)" },
+        { "name": "Charley Patton", "work": "Pony Blues (1929)" }
+      ]
+    },
+    {
+      "id": "chicago-blues", "name": "Chicago Blues", "nameZh": "芝加哥布鲁斯",
+      "category": "blues", "era": { "start": 1947, "end": null },
+      "status": "historical-active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 9, "wikipediaTitle": "Chicago_blues", "mbTag": "chicago blues",
+      "summary": "电吉他化的城市布鲁斯，催生了摇滚乐与英伦布鲁斯。",
+      "artists": [
+        { "name": "Muddy Waters", "work": "Hoochie Coochie Man (1954)" },
+        { "name": "Howlin' Wolf", "work": "Smokestack Lightnin' (1956)" },
+        { "name": "Buddy Guy", "work": "Damn Right, I've Got the Blues (1991)" }
+      ]
+    },
+    {
+      "id": "british-blues", "name": "British Blues", "nameZh": "英伦布鲁斯",
+      "category": "blues", "era": { "start": 1962, "end": 1972 },
+      "status": "historical-influential", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america"],
+      "influenceReach": 8, "wikipediaTitle": "British_blues", "mbTag": "british blues",
+      "summary": "英国乐手对芝加哥布鲁斯的电气重新演绎，导向 60s 摇滚。",
+      "artists": [
+        { "name": "John Mayall & the Bluesbreakers", "work": "Blues Breakers (1966)" },
+        { "name": "Cream", "work": "Disraeli Gears (1967)" },
+        { "name": "Fleetwood Mac (Peter Green era)", "work": "Albatross (1968)" }
+      ]
+    },
+
+    {
+      "id": "bluegrass", "name": "Bluegrass", "nameZh": "蓝草",
+      "category": "country", "era": { "start": 1939, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 6, "wikipediaTitle": "Bluegrass_music", "mbTag": "bluegrass",
+      "summary": "Bill Monroe 命名的高速弦乐五重奏传统，源自肯塔基。",
+      "artists": [
+        { "name": "Bill Monroe", "work": "Blue Moon of Kentucky (1947)" },
+        { "name": "Flatt & Scruggs", "work": "Foggy Mountain Breakdown (1949)" },
+        { "name": "Alison Krauss", "work": "Now That I've Found You (1995)" }
+      ]
+    },
+    {
+      "id": "honky-tonk", "name": "Honky-Tonk", "nameZh": "酒吧乡村",
+      "category": "country", "era": { "start": 1940, "end": 1965 },
+      "status": "historical-active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america"],
+      "influenceReach": 6, "wikipediaTitle": "Honky-tonk", "mbTag": "honky tonk",
+      "summary": "电吉他与失意叙事的德州/俄克拉荷马酒吧风格。",
+      "artists": [
+        { "name": "Hank Williams", "work": "I'm So Lonesome I Could Cry (1949)" },
+        { "name": "George Jones", "work": "He Stopped Loving Her Today (1980)" }
+      ]
+    },
+    {
+      "id": "outlaw-country", "name": "Outlaw Country", "nameZh": "义军乡村",
+      "category": "country", "era": { "start": 1972, "end": 1985 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america"],
+      "influenceReach": 6, "wikipediaTitle": "Outlaw_country", "mbTag": "outlaw country",
+      "summary": "对纳什维尔流水线的反叛，崇尚艺术家自主权。",
+      "artists": [
+        { "name": "Willie Nelson", "work": "Red Headed Stranger (1975)" },
+        { "name": "Waylon Jennings", "work": "Honky Tonk Heroes (1973)" },
+        { "name": "Johnny Cash", "work": "At Folsom Prison (1968)" }
+      ]
+    },
+
+    {
+      "id": "rock-and-roll", "name": "Rock and Roll", "nameZh": "摇滚乐",
+      "category": "rock", "era": { "start": 1954, "end": 1963 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 10, "wikipediaTitle": "Rock_and_roll", "mbTag": "rock and roll",
+      "summary": "节奏布鲁斯与乡村融合，定义了战后流行音乐与青年文化。",
+      "artists": [
+        { "name": "Chuck Berry", "work": "Johnny B. Goode (1958)" },
+        { "name": "Elvis Presley", "work": "Heartbreak Hotel (1956)" },
+        { "name": "Little Richard", "work": "Tutti Frutti (1955)" }
+      ]
+    },
+    {
+      "id": "british-invasion", "name": "British Invasion", "nameZh": "英伦入侵",
+      "category": "rock", "era": { "start": 1964, "end": 1967 },
+      "status": "historical-influential", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america","oceania"],
+      "influenceReach": 10, "wikipediaTitle": "British_Invasion", "mbTag": "british invasion",
+      "summary": "Beatles 与同侪重塑全球流行，将摇滚送入艺术殿堂。",
+      "artists": [
+        { "name": "The Beatles", "work": "Revolver (1966)" },
+        { "name": "The Rolling Stones", "work": "(I Can't Get No) Satisfaction (1965)" },
+        { "name": "The Kinks", "work": "You Really Got Me (1964)" }
+      ]
+    },
+    {
+      "id": "psychedelic-rock", "name": "Psychedelic Rock", "nameZh": "迷幻摇滚",
+      "category": "rock", "era": { "start": 1965, "end": 1971 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 9, "wikipediaTitle": "Psychedelic_rock", "mbTag": "psychedelic rock",
+      "summary": "受 LSD 反主流文化推动的实验摇滚，效果器与录音棚作为乐器。",
+      "artists": [
+        { "name": "The Jimi Hendrix Experience", "work": "Are You Experienced (1967)" },
+        { "name": "Pink Floyd", "work": "The Piper at the Gates of Dawn (1967)" },
+        { "name": "Jefferson Airplane", "work": "Surrealistic Pillow (1967)" }
+      ]
+    },
+    {
+      "id": "progressive-rock", "name": "Progressive Rock", "nameZh": "前卫摇滚",
+      "category": "rock", "era": { "start": 1968, "end": 1980 },
+      "status": "historical-active", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america"],
+      "influenceReach": 8, "wikipediaTitle": "Progressive_rock", "mbTag": "progressive rock",
+      "summary": "长篇结构、复杂拍号与古典/爵士借用，70 年代英伦巅峰。",
+      "artists": [
+        { "name": "King Crimson", "work": "In the Court of the Crimson King (1969)" },
+        { "name": "Yes", "work": "Close to the Edge (1972)" },
+        { "name": "Genesis", "work": "Selling England by the Pound (1973)" }
+      ]
+    },
+    {
+      "id": "punk-rock", "name": "Punk Rock", "nameZh": "朋克",
+      "category": "rock", "era": { "start": 1974, "end": 1981 },
+      "status": "historical-active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","oceania"],
+      "influenceReach": 9, "wikipediaTitle": "Punk_rock", "mbTag": "punk",
+      "summary": "DIY、反建制、三和弦的三分钟燃料，重置了摇滚伦理。",
+      "artists": [
+        { "name": "Ramones", "work": "Ramones (1976)" },
+        { "name": "Sex Pistols", "work": "Never Mind the Bollocks (1977)" },
+        { "name": "The Clash", "work": "London Calling (1979)" }
+      ]
+    },
+    {
+      "id": "new-wave", "name": "New Wave", "nameZh": "新浪潮",
+      "category": "rock", "era": { "start": 1976, "end": 1986 },
+      "status": "historical-active", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america","oceania","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "New_wave_music", "mbTag": "new wave",
+      "summary": "朋克之后的合成器化变体，MTV 时代的主流声音。",
+      "artists": [
+        { "name": "Talking Heads", "work": "Remain in Light (1980)" },
+        { "name": "Blondie", "work": "Parallel Lines (1978)" },
+        { "name": "Devo", "work": "Q: Are We Not Men? (1978)" }
+      ]
+    },
+    {
+      "id": "heavy-metal", "name": "Heavy Metal", "nameZh": "重金属",
+      "category": "rock", "era": { "start": 1968, "end": null },
+      "status": "active", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america","northern-europe","latin-america","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "Heavy_metal_music", "mbTag": "heavy metal",
+      "summary": "高失真吉他、强力节奏的重摇滚分支，全球分支极多。",
+      "artists": [
+        { "name": "Black Sabbath", "work": "Paranoid (1970)" },
+        { "name": "Judas Priest", "work": "British Steel (1980)" },
+        { "name": "Iron Maiden", "work": "The Number of the Beast (1982)" }
+      ]
+    },
+    {
+      "id": "thrash-metal", "name": "Thrash Metal", "nameZh": "鞭挞金属",
+      "category": "rock", "era": { "start": 1981, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","latin-america"],
+      "influenceReach": 8, "wikipediaTitle": "Thrash_metal", "mbTag": "thrash metal",
+      "summary": "速度+硬核精神，湾区四骑士定义 80s 中后期重金属。",
+      "artists": [
+        { "name": "Metallica", "work": "Master of Puppets (1986)" },
+        { "name": "Slayer", "work": "Reign in Blood (1986)" },
+        { "name": "Megadeth", "work": "Rust in Peace (1990)" }
+      ]
+    },
+    {
+      "id": "grunge", "name": "Grunge", "nameZh": "垃圾摇滚",
+      "category": "rock", "era": { "start": 1988, "end": 1996 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","oceania"],
+      "influenceReach": 9, "wikipediaTitle": "Grunge", "mbTag": "grunge",
+      "summary": "西雅图为中心的 alt-rock，颠覆 80 年代 hair metal 主流。",
+      "artists": [
+        { "name": "Nirvana", "work": "Nevermind (1991)" },
+        { "name": "Pearl Jam", "work": "Ten (1991)" },
+        { "name": "Soundgarden", "work": "Superunknown (1994)" }
+      ]
+    },
+    {
+      "id": "indie-rock", "name": "Indie Rock", "nameZh": "独立摇滚",
+      "category": "rock", "era": { "start": 1986, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","oceania","east-asia"],
+      "influenceReach": 8, "wikipediaTitle": "Indie_rock", "mbTag": "indie rock",
+      "summary": "依托独立厂牌的多元 alt-rock 总称，涵盖 lo-fi 到 baroque。",
+      "artists": [
+        { "name": "Pavement", "work": "Slanted and Enchanted (1992)" },
+        { "name": "Arcade Fire", "work": "Funeral (2004)" },
+        { "name": "The Strokes", "work": "Is This It (2001)" }
+      ]
+    },
+
+    {
+      "id": "synth-pop", "name": "Synth-Pop", "nameZh": "合成器流行",
+      "category": "pop", "era": { "start": 1978, "end": 1989 },
+      "status": "historical-active", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "Synth-pop", "mbTag": "synth-pop",
+      "summary": "以合成器为主导的流行，奠定现代电子流行 DNA。",
+      "artists": [
+        { "name": "Depeche Mode", "work": "Violator (1990)" },
+        { "name": "Pet Shop Boys", "work": "Please (1986)" },
+        { "name": "Yazoo", "work": "Upstairs at Eric's (1982)" }
+      ]
+    },
+    {
+      "id": "dance-pop", "name": "Dance-Pop", "nameZh": "舞曲流行",
+      "category": "pop", "era": { "start": 1982, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia","latin-america"],
+      "influenceReach": 10, "wikipediaTitle": "Dance-pop", "mbTag": "dance-pop",
+      "summary": "节奏取向的主流流行，从 Madonna 到 Lady Gaga 一脉相承。",
+      "artists": [
+        { "name": "Madonna", "work": "Like a Prayer (1989)" },
+        { "name": "Michael Jackson", "work": "Thriller (1982)" },
+        { "name": "Britney Spears", "work": "...Baby One More Time (1999)" }
+      ]
+    },
+    {
+      "id": "k-pop", "name": "K-Pop", "nameZh": "韩国流行",
+      "category": "pop", "era": { "start": 1992, "end": null },
+      "status": "active", "originRegion": "east-asia", "originCountry": "South Korea",
+      "spreadRegions": ["east-asia","southeast-asia","north-america","latin-america","western-europe"],
+      "influenceReach": 10, "wikipediaTitle": "K-pop", "mbTag": "k-pop",
+      "summary": "训练生制度+视觉表演体系打造的韩流，2010 年代后全球化。",
+      "artists": [
+        { "name": "Seo Taiji and Boys", "work": "Nan Arayo (1992)" },
+        { "name": "BTS", "work": "Map of the Soul: 7 (2020)" },
+        { "name": "BLACKPINK", "work": "Born Pink (2022)" }
+      ]
+    },
+    {
+      "id": "j-pop", "name": "J-Pop", "nameZh": "日本流行",
+      "category": "pop", "era": { "start": 1988, "end": null },
+      "status": "active", "originRegion": "east-asia", "originCountry": "Japan",
+      "spreadRegions": ["east-asia","southeast-asia","north-america"],
+      "influenceReach": 8, "wikipediaTitle": "J-pop", "mbTag": "j-pop",
+      "summary": "日本现代流行音乐总称，动画/偶像/Visual-kei 多线发展。",
+      "artists": [
+        { "name": "Hikaru Utada", "work": "First Love (1999)" },
+        { "name": "Mr. Children", "work": "Atomic Heart (1994)" },
+        { "name": "YOASOBI", "work": "Idol (2023)" }
+      ]
+    },
+    {
+      "id": "city-pop", "name": "City Pop", "nameZh": "都会流行",
+      "category": "pop", "era": { "start": 1976, "end": 1989 },
+      "status": "niche-revival", "originRegion": "east-asia", "originCountry": "Japan",
+      "spreadRegions": ["east-asia","north-america","western-europe"],
+      "influenceReach": 7, "wikipediaTitle": "City_pop", "mbTag": "city pop",
+      "summary": "日本经济泡沫期的都市风成人向流行，2010s YouTube 大复兴。",
+      "artists": [
+        { "name": "Tatsuro Yamashita", "work": "For You (1982)" },
+        { "name": "Mariya Takeuchi", "work": "Plastic Love (1984)" },
+        { "name": "Anri", "work": "Timely!! (1983)" }
+      ]
+    },
+
+    {
+      "id": "motown", "name": "Motown", "nameZh": "摩城",
+      "category": "rnb", "era": { "start": 1959, "end": 1972 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 9, "wikipediaTitle": "Motown", "mbTag": "motown",
+      "summary": "底特律 Berry Gordy 厂牌打造的跨种族流行黑人音乐工厂。",
+      "artists": [
+        { "name": "Marvin Gaye", "work": "What's Going On (1971)" },
+        { "name": "Stevie Wonder", "work": "Songs in the Key of Life (1976)" },
+        { "name": "The Supremes", "work": "Where Did Our Love Go (1964)" }
+      ]
+    },
+    {
+      "id": "soul", "name": "Soul", "nameZh": "灵魂乐",
+      "category": "rnb", "era": { "start": 1958, "end": 1975 },
+      "status": "historical-active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 9, "wikipediaTitle": "Soul_music", "mbTag": "soul",
+      "summary": "福音 + R&B 的世俗化，民权时代的黑人之声。",
+      "artists": [
+        { "name": "Aretha Franklin", "work": "I Never Loved a Man the Way I Love You (1967)" },
+        { "name": "Otis Redding", "work": "Otis Blue (1965)" },
+        { "name": "Sam Cooke", "work": "A Change Is Gonna Come (1964)" }
+      ]
+    },
+    {
+      "id": "funk", "name": "Funk", "nameZh": "放克",
+      "category": "rnb", "era": { "start": 1967, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","sub-saharan-africa","latin-america"],
+      "influenceReach": 9, "wikipediaTitle": "Funk", "mbTag": "funk",
+      "summary": "强切分一拍 (the One)、Bass 主导的黑人舞曲根基。",
+      "artists": [
+        { "name": "James Brown", "work": "Sex Machine (1970)" },
+        { "name": "Parliament-Funkadelic", "work": "Mothership Connection (1975)" },
+        { "name": "Sly and the Family Stone", "work": "There's a Riot Goin' On (1971)" }
+      ]
+    },
+    {
+      "id": "disco", "name": "Disco", "nameZh": "迪斯科",
+      "category": "rnb", "era": { "start": 1973, "end": 1981 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","latin-america","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "Disco", "mbTag": "disco",
+      "summary": "四四拍踩镲、字符串与同志夜店文化，催生了 house。",
+      "artists": [
+        { "name": "Donna Summer", "work": "I Feel Love (1977)" },
+        { "name": "Bee Gees", "work": "Saturday Night Fever (1977)" },
+        { "name": "Chic", "work": "Risqué (1979)" }
+      ]
+    },
+    {
+      "id": "contemporary-rnb", "name": "Contemporary R&B", "nameZh": "当代节奏布鲁斯",
+      "category": "rnb", "era": { "start": 1980, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "Contemporary_R%26B", "mbTag": "contemporary r&b",
+      "summary": "电子化的灵魂乐与新杰克摇摆传统，主流 pop 的核心引擎之一。",
+      "artists": [
+        { "name": "Whitney Houston", "work": "The Bodyguard (1992)" },
+        { "name": "Beyoncé", "work": "Lemonade (2016)" },
+        { "name": "The Weeknd", "work": "After Hours (2020)" }
+      ]
+    },
+    {
+      "id": "neo-soul", "name": "Neo Soul", "nameZh": "新灵魂乐",
+      "category": "rnb", "era": { "start": 1994, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 7, "wikipediaTitle": "Neo_soul", "mbTag": "neo-soul",
+      "summary": "回归经典灵魂乐质感、混合嘻哈节拍的 90s 复兴。",
+      "artists": [
+        { "name": "D'Angelo", "work": "Voodoo (2000)" },
+        { "name": "Erykah Badu", "work": "Baduizm (1997)" },
+        { "name": "Lauryn Hill", "work": "The Miseducation of Lauryn Hill (1998)" }
+      ]
+    },
+
+    {
+      "id": "old-school-hip-hop", "name": "Old School Hip-Hop", "nameZh": "老派嘻哈",
+      "category": "hiphop", "era": { "start": 1973, "end": 1986 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america"],
+      "influenceReach": 9, "wikipediaTitle": "Old-school_hip_hop", "mbTag": "old school hip hop",
+      "summary": "南布朗克斯 block parties 与 12 寸 disco 节拍诞生的早期 rap。",
+      "artists": [
+        { "name": "Sugarhill Gang", "work": "Rapper's Delight (1979)" },
+        { "name": "Grandmaster Flash", "work": "The Message (1982)" },
+        { "name": "Run-DMC", "work": "Run-D.M.C. (1984)" }
+      ]
+    },
+    {
+      "id": "golden-age-hip-hop", "name": "Golden Age Hip-Hop", "nameZh": "嘻哈黄金时代",
+      "category": "hiphop", "era": { "start": 1986, "end": 1996 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 10, "wikipediaTitle": "Golden_age_hip_hop", "mbTag": "golden age hip hop",
+      "summary": "采样美学与歌词创新爆发，嘻哈成为全球青年语言。",
+      "artists": [
+        { "name": "Public Enemy", "work": "It Takes a Nation of Millions to Hold Us Back (1988)" },
+        { "name": "A Tribe Called Quest", "work": "The Low End Theory (1991)" },
+        { "name": "Wu-Tang Clan", "work": "Enter the Wu-Tang (36 Chambers) (1993)" },
+        { "name": "Nas", "work": "Illmatic (1994)" }
+      ]
+    },
+    {
+      "id": "gangsta-rap", "name": "Gangsta Rap", "nameZh": "匪帮说唱",
+      "category": "hiphop", "era": { "start": 1986, "end": null },
+      "status": "historical-active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 9, "wikipediaTitle": "Gangsta_rap", "mbTag": "gangsta rap",
+      "summary": "西海岸为代表的街头叙事 rap，将社会现实搬上流行榜。",
+      "artists": [
+        { "name": "N.W.A", "work": "Straight Outta Compton (1988)" },
+        { "name": "Dr. Dre", "work": "The Chronic (1992)" },
+        { "name": "Tupac Shakur", "work": "All Eyez on Me (1996)" },
+        { "name": "The Notorious B.I.G.", "work": "Ready to Die (1994)" }
+      ]
+    },
+    {
+      "id": "trap", "name": "Trap", "nameZh": "陷阱",
+      "category": "hiphop", "era": { "start": 2003, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","latin-america","western-europe","east-asia","southeast-asia"],
+      "influenceReach": 10, "wikipediaTitle": "Trap_music", "mbTag": "trap",
+      "summary": "亚特兰大 808 + hi-hat triplet 美学，统治 2010s 流行声音。",
+      "artists": [
+        { "name": "T.I.", "work": "Trap Muzik (2003)" },
+        { "name": "Future", "work": "DS2 (2015)" },
+        { "name": "Migos", "work": "Culture (2017)" },
+        { "name": "Travis Scott", "work": "Astroworld (2018)" }
+      ]
+    },
+    {
+      "id": "drill", "name": "Drill", "nameZh": "钻头说唱",
+      "category": "hiphop", "era": { "start": 2010, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 8, "wikipediaTitle": "Drill_music", "mbTag": "drill",
+      "summary": "芝加哥起家、伦敦/布鲁克林发扬的暗黑 trap 子流派。",
+      "artists": [
+        { "name": "Chief Keef", "work": "Finally Rich (2012)" },
+        { "name": "Pop Smoke", "work": "Shoot for the Stars, Aim for the Moon (2020)" },
+        { "name": "Headie One", "work": "Edna (2020)" }
+      ]
+    },
+
+    {
+      "id": "musique-concrete", "name": "Musique concrète", "nameZh": "具象音乐",
+      "category": "electronic", "era": { "start": 1948, "end": 1970 },
+      "status": "historical-influential", "originRegion": "western-europe", "originCountry": "France",
+      "spreadRegions": ["western-europe","north-america"],
+      "influenceReach": 7, "wikipediaTitle": "Musique_concr%C3%A8te", "mbTag": "musique concrete",
+      "summary": "Pierre Schaeffer 用磁带剪辑现实声响，电子音乐起点。",
+      "artists": [
+        { "name": "Pierre Schaeffer", "work": "Étude aux chemins de fer (1948)" },
+        { "name": "Pierre Henry", "work": "Symphonie pour un homme seul (1950)" }
+      ]
+    },
+    {
+      "id": "krautrock", "name": "Krautrock", "nameZh": "德式摇滚",
+      "category": "electronic", "era": { "start": 1968, "end": 1977 },
+      "status": "historical-influential", "originRegion": "western-europe", "originCountry": "Germany",
+      "spreadRegions": ["western-europe","north-america"],
+      "influenceReach": 8, "wikipediaTitle": "Krautrock", "mbTag": "krautrock",
+      "summary": "西德实验摇滚，催生了 ambient、synth-pop、techno 的源头。",
+      "artists": [
+        { "name": "Kraftwerk", "work": "Trans-Europe Express (1977)" },
+        { "name": "Can", "work": "Tago Mago (1971)" },
+        { "name": "Neu!", "work": "Neu! (1972)" }
+      ]
+    },
+    {
+      "id": "house", "name": "House", "nameZh": "浩室",
+      "category": "electronic", "era": { "start": 1981, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia","latin-america","sub-saharan-africa"],
+      "influenceReach": 10, "wikipediaTitle": "House_music", "mbTag": "house",
+      "summary": "芝加哥 Warehouse 俱乐部诞生的四四拍鼓机舞曲，全球电子舞曲的母体。",
+      "artists": [
+        { "name": "Frankie Knuckles", "work": "Your Love (1987)" },
+        { "name": "Larry Heard / Mr. Fingers", "work": "Can You Feel It (1986)" },
+        { "name": "Daft Punk", "work": "Homework (1997)" }
+      ]
+    },
+    {
+      "id": "detroit-techno", "name": "Detroit Techno", "nameZh": "底特律电音",
+      "category": "electronic", "era": { "start": 1985, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "Detroit_techno", "mbTag": "detroit techno",
+      "summary": "Belleville Three 创立的未来主义机械舞曲，欧洲俱乐部的根基。",
+      "artists": [
+        { "name": "Juan Atkins", "work": "Clear (Cybotron, 1983)" },
+        { "name": "Derrick May", "work": "Strings of Life (1987)" },
+        { "name": "Jeff Mills", "work": "Waveform Transmission Vol.1 (1992)" }
+      ]
+    },
+    {
+      "id": "drum-and-bass", "name": "Drum and Bass", "nameZh": "鼓打贝斯",
+      "category": "electronic", "era": { "start": 1991, "end": null },
+      "status": "active", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america","oceania","east-asia"],
+      "influenceReach": 8, "wikipediaTitle": "Drum_and_bass", "mbTag": "drum and bass",
+      "summary": "英国 rave 文化分支，160-180 BPM amen break 切片。",
+      "artists": [
+        { "name": "Goldie", "work": "Timeless (1995)" },
+        { "name": "Roni Size / Reprazent", "work": "New Forms (1997)" },
+        { "name": "Pendulum", "work": "Hold Your Colour (2005)" }
+      ]
+    },
+    {
+      "id": "dubstep", "name": "Dubstep", "nameZh": "回响贝斯",
+      "category": "electronic", "era": { "start": 2002, "end": null },
+      "status": "historical-active", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america"],
+      "influenceReach": 8, "wikipediaTitle": "Dubstep", "mbTag": "dubstep",
+      "summary": "南伦敦 2-step garage 的暗黑分支，wobble bass 标志。",
+      "artists": [
+        { "name": "Burial", "work": "Untrue (2007)" },
+        { "name": "Skrillex", "work": "Scary Monsters and Nice Sprites (2010)" },
+        { "name": "Skream", "work": "Skream! (2006)" }
+      ]
+    },
+    {
+      "id": "ambient", "name": "Ambient", "nameZh": "氛围",
+      "category": "electronic", "era": { "start": 1978, "end": null },
+      "status": "active", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america","east-asia"],
+      "influenceReach": 8, "wikipediaTitle": "Ambient_music", "mbTag": "ambient",
+      "summary": "Brian Eno 命名的环境音乐，强调氛围与空间而非旋律。",
+      "artists": [
+        { "name": "Brian Eno", "work": "Ambient 1: Music for Airports (1978)" },
+        { "name": "Aphex Twin", "work": "Selected Ambient Works Volume II (1994)" },
+        { "name": "Stars of the Lid", "work": "And Their Refinement of the Decline (2007)" }
+      ]
+    },
+    {
+      "id": "vaporwave", "name": "Vaporwave", "nameZh": "蒸汽波",
+      "category": "electronic", "era": { "start": 2010, "end": 2016 },
+      "status": "niche-revival", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe","east-asia"],
+      "influenceReach": 6, "wikipediaTitle": "Vaporwave", "mbTag": "vaporwave",
+      "summary": "互联网原生美学，慢放 80s 商场背景乐与 city pop 采样。",
+      "artists": [
+        { "name": "Macintosh Plus", "work": "Floral Shoppe (2011)" },
+        { "name": "Chuck Person", "work": "Eccojams Vol. 1 (2010)" }
+      ]
+    },
+
+    {
+      "id": "bossa-nova", "name": "Bossa Nova", "nameZh": "巴萨诺瓦",
+      "category": "latin", "era": { "start": 1958, "end": 1965 },
+      "status": "historical-active", "originRegion": "latin-america", "originCountry": "Brazil",
+      "spreadRegions": ["latin-america","north-america","western-europe","east-asia"],
+      "influenceReach": 9, "wikipediaTitle": "Bossa_nova", "mbTag": "bossa nova",
+      "summary": "桑巴 + cool jazz，里约里贝隆海滩诞生的轻盈节奏。",
+      "artists": [
+        { "name": "João Gilberto", "work": "Chega de Saudade (1959)" },
+        { "name": "Antônio Carlos Jobim", "work": "Garota de Ipanema (1962)" },
+        { "name": "Stan Getz / João Gilberto", "work": "Getz/Gilberto (1964)" }
+      ]
+    },
+    {
+      "id": "salsa", "name": "Salsa", "nameZh": "萨尔萨",
+      "category": "latin", "era": { "start": 1969, "end": null },
+      "status": "active", "originRegion": "north-america", "originCountry": "Puerto Rico",
+      "spreadRegions": ["north-america","latin-america","caribbean","western-europe"],
+      "influenceReach": 9, "wikipediaTitle": "Salsa_music", "mbTag": "salsa",
+      "summary": "纽约波多黎各社区将古巴 son 与爵士融合，全球拉丁舞曲。",
+      "artists": [
+        { "name": "Fania All-Stars", "work": "Live at the Cheetah (1971)" },
+        { "name": "Celia Cruz", "work": "Celia & Johnny (1974)" },
+        { "name": "Héctor Lavoe", "work": "La Voz (1975)" }
+      ]
+    },
+    {
+      "id": "reggaeton", "name": "Reggaeton", "nameZh": "雷鬼顿",
+      "category": "latin", "era": { "start": 1995, "end": null },
+      "status": "active", "originRegion": "caribbean", "originCountry": "Puerto Rico",
+      "spreadRegions": ["caribbean","latin-america","north-america","western-europe"],
+      "influenceReach": 10, "wikipediaTitle": "Reggaeton", "mbTag": "reggaeton",
+      "summary": "Dembow 节拍 + 西语说唱，2017 后接管全球流行。",
+      "artists": [
+        { "name": "Daddy Yankee", "work": "Barrio Fino (2004)" },
+        { "name": "Bad Bunny", "work": "Un Verano Sin Ti (2022)" },
+        { "name": "Ivy Queen", "work": "Diva (2003)" }
+      ]
+    },
+    {
+      "id": "reggae", "name": "Reggae", "nameZh": "雷鬼",
+      "category": "latin", "era": { "start": 1968, "end": null },
+      "status": "active", "originRegion": "caribbean", "originCountry": "Jamaica",
+      "spreadRegions": ["caribbean","north-america","western-europe","sub-saharan-africa","oceania"],
+      "influenceReach": 10, "wikipediaTitle": "Reggae", "mbTag": "reggae",
+      "summary": "牙买加 ska/rocksteady 的进化，全球反叛与拉斯塔法里精神象征。",
+      "artists": [
+        { "name": "Bob Marley & The Wailers", "work": "Exodus (1977)" },
+        { "name": "Toots and the Maytals", "work": "Funky Kingston (1973)" },
+        { "name": "Lee \"Scratch\" Perry", "work": "Super Ape (1976)" }
+      ]
+    },
+    {
+      "id": "dancehall", "name": "Dancehall", "nameZh": "舞厅雷鬼",
+      "category": "latin", "era": { "start": 1979, "end": null },
+      "status": "active", "originRegion": "caribbean", "originCountry": "Jamaica",
+      "spreadRegions": ["caribbean","north-america","western-europe"],
+      "influenceReach": 8, "wikipediaTitle": "Dancehall", "mbTag": "dancehall",
+      "summary": "雷鬼电子化、DJ Toasting 主导，孕育了嘻哈的某些做派。",
+      "artists": [
+        { "name": "Yellowman", "work": "Mister Yellowman (1982)" },
+        { "name": "Shabba Ranks", "work": "As Raw As Ever (1991)" },
+        { "name": "Sean Paul", "work": "Dutty Rock (2002)" }
+      ]
+    },
+
+    {
+      "id": "afrobeat", "name": "Afrobeat", "nameZh": "非洲节拍",
+      "category": "african", "era": { "start": 1968, "end": null },
+      "status": "active", "originRegion": "sub-saharan-africa", "originCountry": "Nigeria",
+      "spreadRegions": ["sub-saharan-africa","north-america","western-europe"],
+      "influenceReach": 8, "wikipediaTitle": "Afrobeat", "mbTag": "afrobeat",
+      "summary": "Fela Kuti 创立的政治化爵士-放克-约鲁巴融合体。",
+      "artists": [
+        { "name": "Fela Kuti", "work": "Zombie (1976)" },
+        { "name": "Tony Allen", "work": "Black Voices (1999)" }
+      ]
+    },
+    {
+      "id": "highlife", "name": "Highlife", "nameZh": "高生活",
+      "category": "african", "era": { "start": 1920, "end": null },
+      "status": "historical-active", "originRegion": "sub-saharan-africa", "originCountry": "Ghana",
+      "spreadRegions": ["sub-saharan-africa"],
+      "influenceReach": 6, "wikipediaTitle": "Highlife", "mbTag": "highlife",
+      "summary": "加纳/尼日利亚的吉他/铜管舞曲，独立运动时期国民音乐。",
+      "artists": [
+        { "name": "E.T. Mensah", "work": "All for You (1956)" },
+        { "name": "Osibisa", "work": "Osibisa (1971)" }
+      ]
+    },
+    {
+      "id": "afrobeats", "name": "Afrobeats", "nameZh": "非洲节奏",
+      "category": "african", "era": { "start": 2010, "end": null },
+      "status": "active", "originRegion": "sub-saharan-africa", "originCountry": "Nigeria",
+      "spreadRegions": ["sub-saharan-africa","western-europe","north-america","caribbean"],
+      "influenceReach": 9, "wikipediaTitle": "Afrobeats", "mbTag": "afrobeats",
+      "summary": "拉各斯-伦敦轴的当代非洲流行 (注意非 Afrobeat)，2020s 全球爆发。",
+      "artists": [
+        { "name": "Wizkid", "work": "Made in Lagos (2020)" },
+        { "name": "Burna Boy", "work": "African Giant (2019)" },
+        { "name": "Davido", "work": "A Better Time (2020)" }
+      ]
+    },
+    {
+      "id": "amapiano", "name": "Amapiano", "nameZh": "阿玛皮亚诺",
+      "category": "african", "era": { "start": 2012, "end": null },
+      "status": "active", "originRegion": "sub-saharan-africa", "originCountry": "South Africa",
+      "spreadRegions": ["sub-saharan-africa","western-europe","north-america"],
+      "influenceReach": 8, "wikipediaTitle": "Amapiano", "mbTag": "amapiano",
+      "summary": "南非 deep house + kwaito + jazz piano 的低速舞曲，2020s 起飞。",
+      "artists": [
+        { "name": "Kabza De Small", "work": "I Am the King of Amapiano (2020)" },
+        { "name": "DJ Maphorisa", "work": "Scorpion Kings (with Kabza, 2019)" },
+        { "name": "Tyler ICU", "work": "Mnike (2023)" }
+      ]
+    },
+
+    {
+      "id": "minstrel-music", "name": "Minstrel Show Music", "nameZh": "黑脸吟游秀",
+      "category": "obsolete", "era": { "start": 1830, "end": 1910 },
+      "status": "obsolete", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 6, "wikipediaTitle": "Minstrel_show", "mbTag": "minstrel",
+      "summary": "已废止：白人涂黑脸表演非裔刻板印象，是美国最早的本土流行乐。",
+      "artists": [
+        { "name": "Stephen Foster (composer)", "work": "Oh! Susanna (1848)" },
+        { "name": "Christy's Minstrels", "work": "Touring repertoire (1840s-50s)" }
+      ]
+    },
+    {
+      "id": "tin-pan-alley", "name": "Tin Pan Alley", "nameZh": "锡盘巷",
+      "category": "obsolete", "era": { "start": 1885, "end": 1953 },
+      "status": "historical-influential", "originRegion": "north-america", "originCountry": "United States of America",
+      "spreadRegions": ["north-america","western-europe"],
+      "influenceReach": 9, "wikipediaTitle": "Tin_Pan_Alley", "mbTag": "tin pan alley",
+      "summary": "纽约 28th Street 的曲谱出版业，催生美国流行歌曲产业。",
+      "artists": [
+        { "name": "Irving Berlin", "work": "Alexander's Ragtime Band (1911)" },
+        { "name": "George Gershwin", "work": "Rhapsody in Blue (1924)" },
+        { "name": "Cole Porter", "work": "Night and Day (1932)" }
+      ]
+    },
+    {
+      "id": "rocksteady", "name": "Rocksteady", "nameZh": "稳摇",
+      "category": "obsolete", "era": { "start": 1966, "end": 1968 },
+      "status": "historical-influential", "originRegion": "caribbean", "originCountry": "Jamaica",
+      "spreadRegions": ["caribbean","western-europe"],
+      "influenceReach": 7, "wikipediaTitle": "Rocksteady", "mbTag": "rocksteady",
+      "summary": "ska 减速并简化，仅活跃两年但直接催生雷鬼。",
+      "artists": [
+        { "name": "Alton Ellis", "work": "Get Ready Rock Steady (1967)" },
+        { "name": "The Heptones", "work": "On Top (1968)" }
+      ]
+    },
+    {
+      "id": "trip-hop", "name": "Trip-Hop", "nameZh": "迷幻嘻哈",
+      "category": "obsolete", "era": { "start": 1991, "end": 2002 },
+      "status": "historical-influential", "originRegion": "western-europe", "originCountry": "United Kingdom",
+      "spreadRegions": ["western-europe","north-america"],
+      "influenceReach": 7, "wikipediaTitle": "Trip_hop", "mbTag": "trip hop",
+      "summary": "布里斯托产的慢速 break + dub + soul + 阴郁人声。",
+      "artists": [
+        { "name": "Massive Attack", "work": "Mezzanine (1998)" },
+        { "name": "Portishead", "work": "Dummy (1994)" },
+        { "name": "Tricky", "work": "Maxinquaye (1995)" }
+      ]
+    }
+  ]
+}

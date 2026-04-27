@@ -1,0 +1,18 @@
+{
+  "regions": [
+    { "id": "north-america",      "name": "North America",      "lat": 45,  "lng": -100 },
+    { "id": "latin-america",      "name": "Latin America",      "lat": -15, "lng": -60  },
+    { "id": "caribbean",          "name": "Caribbean",          "lat": 18,  "lng": -75  },
+    { "id": "western-europe",     "name": "Western Europe",     "lat": 50,  "lng": 5    },
+    { "id": "eastern-europe",     "name": "Eastern Europe",     "lat": 50,  "lng": 30   },
+    { "id": "northern-europe",    "name": "Northern Europe",    "lat": 62,  "lng": 15   },
+    { "id": "southern-europe",    "name": "Southern Europe",    "lat": 42,  "lng": 12   },
+    { "id": "sub-saharan-africa", "name": "Sub-Saharan Africa", "lat": -5,  "lng": 25   },
+    { "id": "north-africa",       "name": "North Africa",       "lat": 28,  "lng": 10   },
+    { "id": "middle-east",        "name": "Middle East",        "lat": 33,  "lng": 45   },
+    { "id": "south-asia",         "name": "South Asia",         "lat": 22,  "lng": 78   },
+    { "id": "east-asia",          "name": "East Asia",          "lat": 35,  "lng": 110  },
+    { "id": "southeast-asia",     "name": "Southeast Asia",     "lat": 5,   "lng": 110  },
+    { "id": "oceania",            "name": "Oceania",            "lat": -25, "lng": 135  }
+  ]
+}
