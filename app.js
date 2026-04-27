@@ -11,6 +11,7 @@ const STATE = {
   mapEls: null,
   wikiCache: new Map(),
   mbCache: new Map(),
+  wikiLinkCache: new Map(),
 };
 
 const STATUS_LABEL = {
@@ -149,6 +150,7 @@ function renderTree() {
 
 /* ------------------------ Detail ------------------------ */
 function selectGenre(id) {
+  stopPreview();
   STATE.selected = id;
   const g = STATE.genres.find(x => x.id === id);
   if (!g) return;
@@ -172,7 +174,13 @@ function renderDetail(g) {
     .join('、');
 
   detail.innerHTML = `
-    <h2>${g.name} <span class="name-zh">${g.nameZh || ''}</span></h2>
+    <h2>
+      <button class="play-btn" id="play-btn" type="button" aria-label="试听 30 秒代表片段" title="试听 30 秒代表片段">
+        <span class="play-icon">▶</span>
+      </button>
+      ${g.name} <span class="name-zh">${g.nameZh || ''}</span>
+      <span class="play-info" id="play-info"></span>
+    </h2>
     <div class="meta-row">
       <span class="tag status status-${g.status}">● ${STATUS_LABEL[g.status]}</span>
       <span class="tag era">${eraStart} – ${eraEnd}</span>
@@ -202,6 +210,145 @@ function renderDetail(g) {
     <div class="section-title">影响力地理范围</div>
     <p>主要传播：${spread || '—'}</p>
   `;
+  document.getElementById('play-btn')?.addEventListener('click', () => playPreview(g));
+  enrichArtistLinks(g);
+}
+
+/* ------------------------ Artist / Work Wikipedia Links ------------------------ */
+function hasCJK(s) { return /[一-鿿]/.test(s || ''); }
+
+function cleanWork(work) {
+  if (!work) return '';
+  return work.replace(/\s*\([^)]*\)\s*/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+async function findWikiUrl(query) {
+  if (!query) return null;
+  const cache = STATE.wikiLinkCache;
+  if (cache.has(query)) return cache.get(query);
+
+  const langs = hasCJK(query) ? ['zh', 'en'] : ['en', 'zh'];
+  for (const lang of langs) {
+    const url = `https://${lang}.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=3&namespace=0&format=json&origin=*`;
+    try {
+      const data = await fetch(url).then(r => r.json());
+      const titles = data[1] || [];
+      const urls = data[3] || [];
+      for (let i = 0; i < titles.length; i++) {
+        const title = titles[i];
+        if (/\(disambiguation\)|消歧義|消歧义/i.test(title)) continue;
+        // sanity: at least one query token (length > 1) appears in returned title
+        const tLower = title.toLowerCase();
+        const tokens = query.toLowerCase().replace(/[(),."'\-–—]/g, ' ').split(/\s+/).filter(x => x.length > 1);
+        const ok = tokens.length === 0 || tokens.some(tok => tLower.includes(tok));
+        if (ok) {
+          cache.set(query, urls[i]);
+          return urls[i];
+        }
+      }
+    } catch (e) { /* continue */ }
+  }
+  cache.set(query, null);
+  return null;
+}
+
+async function enrichArtistLinks(g) {
+  const cards = document.querySelectorAll('.artist-card');
+  const targetId = g.id;
+  cards.forEach((card, i) => {
+    const a = (g.artists || [])[i];
+    if (!a) return;
+    const nameEl = card.querySelector('.artist-name');
+    const workEl = card.querySelector('.artist-work');
+
+    if (nameEl) {
+      findWikiUrl(a.name).then(url => {
+        if (!url || STATE.selected !== targetId) return;
+        nameEl.innerHTML = `<a class="wiki-link-inline" target="_blank" rel="noopener" href="${url}">${escapeHtml(a.name)}</a>`;
+      });
+    }
+    if (workEl && a.work) {
+      const cleaned = cleanWork(a.work);
+      (async () => {
+        let url = await findWikiUrl(cleaned);
+        if (!url) url = await findWikiUrl(`${cleaned} ${a.name}`);
+        if (!url || STATE.selected !== targetId) return;
+        workEl.innerHTML = `<a class="wiki-link-inline" target="_blank" rel="noopener" href="${url}">${escapeHtml(a.work)}</a>`;
+      })();
+    }
+  });
+}
+
+/* ------------------------ Audio Preview (iTunes Search API) ------------------------ */
+const PREVIEW = { audio: null, currentId: null, timer: null };
+
+function stopPreview() {
+  if (PREVIEW.audio) { PREVIEW.audio.pause(); PREVIEW.audio.src = ''; }
+  if (PREVIEW.timer) { clearTimeout(PREVIEW.timer); PREVIEW.timer = null; }
+  PREVIEW.currentId = null;
+  const btn = document.getElementById('play-btn');
+  if (btn) { btn.classList.remove('playing'); btn.querySelector('.play-icon').textContent = '▶'; }
+  const info = document.getElementById('play-info');
+  if (info) info.textContent = '';
+}
+
+function derivePreviewQuery(g) {
+  if (g.preview?.query) return g.preview.query;
+  const a = (g.artists || [])[0];
+  if (!a) return g.name;
+  // strip parentheticals like "(1945)" from work title
+  const work = (a.work || '').replace(/\s*\([^)]*\)\s*/g, ' ').trim();
+  return `${a.name} ${work}`.trim();
+}
+
+async function playPreview(g) {
+  const btn = document.getElementById('play-btn');
+  const info = document.getElementById('play-info');
+  if (!btn) return;
+  const icon = btn.querySelector('.play-icon');
+
+  // toggle off if same genre is currently playing
+  if (PREVIEW.audio && !PREVIEW.audio.paused && PREVIEW.currentId === g.id) {
+    stopPreview();
+    return;
+  }
+  // stop any existing playback
+  stopPreview();
+
+  icon.textContent = '⏳';
+  info.textContent = '搜索中…';
+
+  try {
+    const query = derivePreviewQuery(g);
+    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&limit=5&entity=song&media=music`;
+    const data = await fetch(url).then(r => r.json());
+    const track = (data.results || []).find(t => t.previewUrl) || null;
+    if (!track) throw new Error('no preview found');
+
+    PREVIEW.audio = new Audio(track.previewUrl);
+    PREVIEW.audio.crossOrigin = 'anonymous';
+    PREVIEW.currentId = g.id;
+    PREVIEW.audio.addEventListener('ended', stopPreview);
+    PREVIEW.audio.addEventListener('error', () => {
+      info.textContent = '播放失败';
+      stopPreview();
+    });
+    await PREVIEW.audio.play();
+    btn.classList.add('playing');
+    icon.textContent = '⏸';
+    info.textContent = `♪ ${track.artistName} — ${track.trackName}`;
+    // safety auto-stop after 32s in case 'ended' doesn't fire
+    PREVIEW.timer = setTimeout(stopPreview, 32000);
+  } catch (e) {
+    icon.textContent = '⚠';
+    info.textContent = 'iTunes 上未找到该曲目预览';
+    setTimeout(() => {
+      if (!PREVIEW.audio || PREVIEW.audio.paused) {
+        icon.textContent = '▶';
+        info.textContent = '';
+      }
+    }, 2200);
+  }
 }
 
 function renderTimeline(g) {
