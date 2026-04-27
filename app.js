@@ -280,73 +280,81 @@ async function enrichArtistLinks(g) {
 }
 
 /* ------------------------ Audio Preview (iTunes Search API) ------------------------ */
-const PREVIEW = { audio: null, currentId: null, timer: null };
+const PREVIEW = { audio: null, currentId: null, timer: null, reqId: 0 };
+
+function setPlayUI({ icon, info, playing }) {
+  const btn = document.getElementById('play-btn');
+  if (btn) {
+    btn.classList.toggle('playing', !!playing);
+    const iconEl = btn.querySelector('.play-icon');
+    if (iconEl && icon !== undefined) iconEl.textContent = icon;
+  }
+  const infoEl = document.getElementById('play-info');
+  if (infoEl && info !== undefined) infoEl.textContent = info;
+}
 
 function stopPreview() {
-  if (PREVIEW.audio) { PREVIEW.audio.pause(); PREVIEW.audio.src = ''; }
+  PREVIEW.reqId++;  // invalidate any in-flight playPreview
   if (PREVIEW.timer) { clearTimeout(PREVIEW.timer); PREVIEW.timer = null; }
+  if (PREVIEW.audio) {
+    try {
+      PREVIEW.audio.onended = null;
+      PREVIEW.audio.onerror = null;
+      PREVIEW.audio.pause();
+    } catch (e) { /* ignore */ }
+    PREVIEW.audio = null;
+  }
   PREVIEW.currentId = null;
-  const btn = document.getElementById('play-btn');
-  if (btn) { btn.classList.remove('playing'); btn.querySelector('.play-icon').textContent = '▶'; }
-  const info = document.getElementById('play-info');
-  if (info) info.textContent = '';
+  setPlayUI({ icon: '▶', info: '', playing: false });
 }
 
 function derivePreviewQuery(g) {
   if (g.preview?.query) return g.preview.query;
   const a = (g.artists || [])[0];
   if (!a) return g.name;
-  // strip parentheticals like "(1945)" from work title
   const work = (a.work || '').replace(/\s*\([^)]*\)\s*/g, ' ').trim();
   return `${a.name} ${work}`.trim();
 }
 
 async function playPreview(g) {
-  const btn = document.getElementById('play-btn');
-  const info = document.getElementById('play-info');
-  if (!btn) return;
-  const icon = btn.querySelector('.play-icon');
-
   // toggle off if same genre is currently playing
   if (PREVIEW.audio && !PREVIEW.audio.paused && PREVIEW.currentId === g.id) {
     stopPreview();
     return;
   }
-  // stop any existing playback
   stopPreview();
 
-  icon.textContent = '⏳';
-  info.textContent = '搜索中…';
+  const myReq = ++PREVIEW.reqId;
+  setPlayUI({ icon: '⏳', info: '搜索中…', playing: false });
 
   try {
     const query = derivePreviewQuery(g);
     const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&limit=5&entity=song&media=music`;
     const data = await fetch(url).then(r => r.json());
-    const track = (data.results || []).find(t => t.previewUrl) || null;
-    if (!track) throw new Error('no preview found');
+    if (myReq !== PREVIEW.reqId) return;  // user did something else
 
-    PREVIEW.audio = new Audio(track.previewUrl);
-    PREVIEW.audio.crossOrigin = 'anonymous';
+    const track = (data.results || []).find(t => t.previewUrl);
+    if (!track) throw new Error('no preview');
+
+    const audio = new Audio(track.previewUrl);
+    audio.onended = () => { if (myReq === PREVIEW.reqId) stopPreview(); };
+    audio.onerror = () => { if (myReq === PREVIEW.reqId) {
+      setPlayUI({ icon: '⚠', info: '播放失败' });
+      setTimeout(() => { if (myReq === PREVIEW.reqId) stopPreview(); }, 1500);
+    }};
+    PREVIEW.audio = audio;
     PREVIEW.currentId = g.id;
-    PREVIEW.audio.addEventListener('ended', stopPreview);
-    PREVIEW.audio.addEventListener('error', () => {
-      info.textContent = '播放失败';
-      stopPreview();
-    });
-    await PREVIEW.audio.play();
-    btn.classList.add('playing');
-    icon.textContent = '⏸';
-    info.textContent = `♪ ${track.artistName} — ${track.trackName}`;
-    // safety auto-stop after 32s in case 'ended' doesn't fire
-    PREVIEW.timer = setTimeout(stopPreview, 32000);
+
+    await audio.play();
+    if (myReq !== PREVIEW.reqId) { try { audio.pause(); } catch(e){} return; }
+
+    setPlayUI({ icon: '⏸', info: `♪ ${track.artistName} — ${track.trackName}`, playing: true });
+    PREVIEW.timer = setTimeout(() => { if (myReq === PREVIEW.reqId) stopPreview(); }, 32000);
   } catch (e) {
-    icon.textContent = '⚠';
-    info.textContent = 'iTunes 上未找到该曲目预览';
+    if (myReq !== PREVIEW.reqId) return;
+    setPlayUI({ icon: '⚠', info: 'iTunes 上未找到该曲目预览' });
     setTimeout(() => {
-      if (!PREVIEW.audio || PREVIEW.audio.paused) {
-        icon.textContent = '▶';
-        info.textContent = '';
-      }
+      if (myReq === PREVIEW.reqId) setPlayUI({ icon: '▶', info: '' });
     }, 2200);
   }
 }
