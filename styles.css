@@ -157,9 +157,30 @@ a:hover { text-decoration: underline; }
 .status-obsolete           { background: var(--danger); }
 
 .counts {
-  margin: 12px 8px; font-size: 11px; color: var(--text-dim);
+  margin: 12px 8px 8px; font-size: 11px; color: var(--text-dim);
   border-top: 1px dashed var(--border); padding-top: 10px;
 }
+
+.legend {
+  margin: 8px 8px 6px;
+  padding: 10px 10px 8px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,.02), transparent);
+  border: 1px solid var(--border);
+}
+.legend-title {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 1.4px;
+  color: var(--text-dim); margin-bottom: 6px;
+}
+.legend-list { list-style: none; margin: 0; padding: 0; }
+.legend-list li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--text-dim);
+  padding: 2px 0;
+  transition: color .18s;
+}
+.legend-list li:hover { color: var(--text); }
+.legend-list .status-dot { box-shadow: 0 0 0 2px var(--bg-elev); }
 
 /* Detail */
 .detail {
@@ -339,4 +360,118 @@ a:hover { text-decoration: underline; }
   .layout { grid-template-columns: 1fr; }
   .sidebar { max-height: 240px; }
   .controls input[type="search"] { min-width: 0; flex: 1; }
+}
+
+/* ========== Liveliness ========== */
+
+/* Subtle ambient color tint behind everything */
+body {
+  background:
+    radial-gradient(900px circle at 12% 8%,  rgba(76,201,240,.05), transparent 55%),
+    radial-gradient(800px circle at 92% 88%, rgba(240,165,0,.05), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+/* Slow gradient drift on brand title */
+.brand h1 {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent));
+  background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: brand-shimmer 14s linear infinite;
+}
+@keyframes brand-shimmer {
+  from { background-position: 0% 0; }
+  to   { background-position: -220% 0; }
+}
+
+/* Detail panel entrance: stagger children fade-up */
+.detail > * { animation: detail-in .42s cubic-bezier(.2,.8,.2,1) both; }
+.detail > *:nth-child(1) { animation-delay: 0s; }
+.detail > *:nth-child(2) { animation-delay: .04s; }
+.detail > *:nth-child(3) { animation-delay: .08s; }
+.detail > *:nth-child(4) { animation-delay: .12s; }
+.detail > *:nth-child(5) { animation-delay: .16s; }
+.detail > *:nth-child(6) { animation-delay: .20s; }
+.detail > *:nth-child(7) { animation-delay: .24s; }
+.detail > *:nth-child(8) { animation-delay: .28s; }
+.detail > *:nth-child(9) { animation-delay: .32s; }
+.detail > *:nth-child(10) { animation-delay: .36s; }
+.detail > *:nth-child(n+11) { animation-delay: .40s; }
+@keyframes detail-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Active status dot quietly breathes (only currently-popular genres) */
+.genre-item .status-dot.status-active,
+.legend-list .status-dot.status-active {
+  animation: dot-breathe 3.2s ease-in-out infinite;
+}
+@keyframes dot-breathe {
+  0%,100% { box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 0 rgba(6,214,160,.45); }
+  50%     { box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 5px rgba(6,214,160,0); }
+}
+
+/* Genre item hover: tiny slide + smooth color */
+.genre-item {
+  transition: background .18s ease, color .18s ease, transform .2s ease, border-color .18s;
+}
+.genre-item:hover { transform: translateX(2px); }
+.genre-item.active { transform: none; }
+
+/* Tags: subtle lift on hover */
+.tag {
+  transition: transform .15s ease, border-color .15s ease, color .15s ease, background .15s ease;
+}
+.tag:hover {
+  transform: translateY(-1px);
+  border-color: rgba(76,201,240,.45);
+  color: var(--text);
+}
+
+/* Artist card hover */
+.artist-card {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.artist-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(240,165,0,.35);
+  background: var(--bg-elev-2);
+}
+
+/* Search & select focus glow */
+.controls input:focus, .controls select:focus {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(76,201,240,.14);
+  transition: box-shadow .2s, border-color .15s;
+}
+
+/* Map: origin marker quiet pulse */
+.region-marker.origin {
+  animation: origin-pulse 2.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes origin-pulse {
+  0%,100% { fill-opacity: .85; }
+  50%     { fill-opacity: 1; }
+}
+
+/* Country highlights: smooth fill transition */
+.country { transition: fill .35s ease; }
+
+/* Cat-header caret subtle hover */
+.cat-header:hover .caret { color: var(--accent); }
+
+/* Smooth scroll inside scrollable panes */
+.sidebar, .detail { scroll-behavior: smooth; }
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }
