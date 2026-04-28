@@ -119,7 +119,12 @@ function renderTree() {
     group.className = 'cat-group';
     const header = document.createElement('div');
     header.className = 'cat-header';
-    header.innerHTML = `<span class="caret">▾</span> ${cat.name} <span class="cat-name-zh">${cat.nameZh}</span> · ${items.length}`;
+    header.title = cat.nameZh;
+    header.innerHTML = `
+      <span class="caret">▾</span>
+      <span class="cat-name">${cat.name}</span>
+      <span class="cat-count">${items.length}</span>
+    `;
     header.addEventListener('click', () => group.classList.toggle('collapsed'));
     group.appendChild(header);
 
@@ -132,8 +137,9 @@ function renderTree() {
         li.className = 'genre-item';
         if (STATE.selected === g.id) li.classList.add('active');
         li.dataset.id = g.id;
+        li.title = `${g.name}${g.nameZh ? ' · ' + g.nameZh : ''} — ${STATUS_LABEL[g.status]}`;
         li.innerHTML = `
-          <span class="status-dot status-${g.status}" title="${STATUS_LABEL[g.status]}"></span>
+          <span class="status-dot status-${g.status}"></span>
           <span class="genre-name">${g.name}</span>
           <span class="genre-name-zh">${g.nameZh || ''}</span>
         `;
