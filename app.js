@@ -27,6 +27,23 @@ const STATUS_LABEL = {
   'obsolete': '已废止',
 };
 
+/* Category palette (matches graph node colors) — used for fallback covers etc. */
+const CATEGORY_COLORS = {
+  classical:  '#c4a484',
+  folk:       '#8aaed6',
+  jazz:       '#f0a500',
+  blues:      '#4a7eb8',
+  country:    '#b8865c',
+  rock:       '#ef476f',
+  pop:        '#f78fb3',
+  rnb:        '#c77dff',
+  hiphop:     '#ffd166',
+  electronic: '#4cc9f0',
+  latin:      '#06d6a0',
+  african:    '#ee9b00',
+  obsolete:   '#707880',
+};
+
 /* Genre influence lineages: child ← parent(s) */
 const INFLUENCES = {
   'ars-nova': ['gregorian-chant'],
@@ -726,9 +743,12 @@ async function loadCoverWall(g) {
   wall.innerHTML = '';
   const targetId = g.id;
 
+  const slotColor = CATEGORY_COLORS[g.category] || '#707880';
+
   (g.artists || []).slice(0, 6).forEach(a => {
     const slot = document.createElement('div');
     slot.className = 'cover-slot';
+    slot.style.setProperty('--slot-color', slotColor);
     const cleanedWork = (a.work || '').replace(/\s*\([^)]*\)\s*/g, '').trim();
     slot.innerHTML = `
       <div class="cover-placeholder">…</div>

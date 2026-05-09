@@ -18,6 +18,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 html, body {
   margin: 0; padding: 0; height: 100%;
@@ -642,7 +643,17 @@ body {
 }
 .cover-caption small { color: var(--text-dim); font-size: 9.5px; font-weight: 400; }
 .cover-slot.failed .cover-img { display: none; }
-.cover-slot.failed .cover-placeholder::after { content: "✦ 无封面"; color: var(--text-dim); }
+.cover-slot.failed .cover-placeholder { display: none; }
+.cover-slot.failed {
+  background:
+    linear-gradient(135deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.15) 100%),
+    var(--slot-color, var(--bg-elev-2));
+  border-color: rgba(255,255,255,.06);
+}
+.cover-slot.failed .cover-caption {
+  background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.25) 80%, transparent);
+  padding-bottom: 10px;
+}
 
 /* ========== Search Results ========== */
 .search-results {
