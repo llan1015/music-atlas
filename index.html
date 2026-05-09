@@ -36,11 +36,6 @@
         <input id="era-end" type="number" value="2026" step="10" />
       </div>
       <button id="reset-filters" type="button">重置</button>
-      <div class="view-tabs" role="tablist" aria-label="视图切换">
-        <button class="view-tab active" data-view="atlas" type="button">Atlas</button>
-        <button class="view-tab" data-view="timeline" type="button">时间轴</button>
-        <button class="view-tab" data-view="graph" type="button">关系图</button>
-      </div>
     </div>
   </header>
 
@@ -72,18 +67,10 @@
       <div id="map"></div>
     </section>
 
-    <section class="timeline-panel" id="timeline-panel" hidden>
+    <section class="graph-panel" id="graph-panel">
       <div class="panel-header">
-        <h2>音乐流派时间轴</h2>
-        <span class="panel-hint">每条色带代表一个流派的活跃时期 · 点击跳到详情</span>
-      </div>
-      <div id="timeline-canvas"></div>
-    </section>
-
-    <section class="graph-panel" id="graph-panel" hidden>
-      <div class="panel-header">
-        <h2>流派影响关系图</h2>
-        <span class="panel-hint">连线 = 影响方向（前驱→后继） · 节点大小 = 影响力 · 拖拽可调整 · 颜色区分类别</span>
+        <h2>流派关系</h2>
+        <span class="panel-hint" id="graph-hint">前驱 → 当前 → 后继</span>
       </div>
       <div id="graph-canvas"></div>
     </section>

@@ -72,11 +72,27 @@ a:hover { text-decoration: underline; }
 /* Layout */
 .layout {
   display: grid;
-  grid-template-columns: 280px 1fr 480px;
   gap: 0;
   height: calc(100vh - 56px - 32px);
   min-height: 600px;
 }
+.layout.view-atlas {
+  grid-template-columns: 280px 1fr 480px;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "sidebar detail map"
+    "sidebar detail graph";
+}
+.layout.view-search {
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "sidebar search";
+}
+.sidebar      { grid-area: sidebar; }
+.detail       { grid-area: detail; }
+.map-panel    { grid-area: map; }
+.graph-panel  { grid-area: graph; }
+.search-panel { grid-area: search; }
 
 /* Sidebar */
 .sidebar {
@@ -352,12 +368,29 @@ a:hover { text-decoration: underline; }
 
 /* Responsive */
 @media (max-width: 1100px) {
-  .layout { grid-template-columns: 240px 1fr; grid-template-rows: 1fr 380px; height: auto; min-height: 0; }
-  .map-panel { grid-column: 1 / -1; border-top: 1px solid var(--border); }
+  .layout.view-atlas {
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: minmax(0, 1fr) 320px 320px;
+    grid-template-areas:
+      "sidebar detail"
+      "sidebar map"
+      "sidebar graph";
+    height: auto;
+    min-height: 0;
+  }
+  .layout.view-search {
+    grid-template-columns: 240px 1fr;
+  }
+  .map-panel, .graph-panel { border-top: 1px solid var(--border); }
   .detail { border-right: none; }
 }
 @media (max-width: 720px) {
-  .layout { grid-template-columns: 1fr; }
+  .layout.view-atlas,
+  .layout.view-search {
+    grid-template-columns: 1fr;
+    grid-template-areas: "sidebar" "detail" "map" "graph";
+  }
+  .layout.view-search { grid-template-areas: "sidebar" "search"; }
   .sidebar { max-height: 240px; }
   .controls input[type="search"] { min-width: 0; flex: 1; }
 }
@@ -476,41 +509,12 @@ body {
   }
 }
 
-/* ========== View tabs ========== */
-.view-tabs {
-  display: flex; gap: 0;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
-  background: var(--bg-elev-2);
-}
-.view-tab {
-  background: transparent; color: var(--text-dim);
-  border: none; padding: 7px 12px;
-  font: inherit; font-size: 12px;
-  cursor: pointer;
-  transition: background .15s, color .15s;
-  border-right: 1px solid var(--border);
-}
-.view-tab:last-child { border-right: none; }
-.view-tab:hover { color: var(--text); background: rgba(255,255,255,.04); }
-.view-tab.active {
-  background: linear-gradient(180deg, var(--accent), #d99300);
-  color: #1a1410; font-weight: 600;
-}
-
-/* ========== View layouts ========== */
-.layout.view-timeline,
-.layout.view-graph,
-.layout.view-search {
-  grid-template-columns: 280px 1fr;
-}
-
-/* ========== Generic panel header (timeline/graph/search) ========== */
-.timeline-panel, .graph-panel, .search-panel {
+/* ========== Generic panel header (graph/search) ========== */
+.graph-panel, .search-panel {
   background: var(--bg-elev);
   display: flex; flex-direction: column;
   overflow: hidden;
+  border-top: 1px solid var(--border);
 }
 .panel-header {
   padding: 12px 18px; border-bottom: 1px solid var(--border);
@@ -528,30 +532,8 @@ body {
 }
 .panel-close:hover { color: var(--accent); border-color: var(--accent); }
 
-#timeline-canvas { flex: 1; overflow: auto; padding: 4px 0; }
 #graph-canvas    { flex: 1; overflow: hidden; position: relative; }
 #search-canvas   { flex: 1; overflow: auto; }
-
-/* ========== Timeline ========== */
-.tl-axis text { fill: var(--text-dim); font-size: 10px; font-family: var(--mono); }
-.tl-axis line, .tl-axis path { stroke: var(--border); }
-.tl-cat-label { fill: var(--text-dim); font-size: 11px; font-weight: 500; }
-.tl-row-line { stroke: var(--border); stroke-dasharray: 2,4; opacity: .5; }
-.tl-bar {
-  stroke: rgba(0,0,0,.25); stroke-width: .5;
-  cursor: pointer;
-  transition: opacity .2s, stroke .2s, stroke-width .2s;
-}
-.tl-bar:hover { opacity: 1; stroke: #fff; stroke-width: 1.2; }
-.tl-bar.status-active                 { fill: var(--good); }
-.tl-bar.status-historical-active      { fill: var(--accent-2); }
-.tl-bar.status-historical-influential { fill: var(--accent); }
-.tl-bar.status-niche-revival          { fill: var(--warn); }
-.tl-bar.status-obsolete               { fill: var(--danger); }
-.tl-bar.active { stroke: var(--accent); stroke-width: 2; }
-.tl-bar-label { fill: var(--text); font-size: 9px; pointer-events: none; opacity: 0; }
-.tl-bar:hover + .tl-bar-label,
-.tl-bar-label.persistent { opacity: 1; }
 
 /* ========== Graph ========== */
 .gr-link {

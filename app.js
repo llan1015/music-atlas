@@ -157,7 +157,7 @@ async function init() {
 
   populateRegionFilter();
   bindFilters();
-  bindViewTabs();
+  bindSearchClose();
   renderTree();
   await initMap();
   // auto-select first visible
@@ -165,35 +165,21 @@ async function init() {
   if (first) selectGenre(first.id);
 }
 
-/* ------------------------ View Switcher ------------------------ */
+/* ------------------------ View Switcher (atlas / search) ------------------------ */
 function setView(view) {
   if (STATE.view === view) return;
   STATE.view = view;
   const layout = document.getElementById('layout');
-  layout.classList.remove('view-atlas', 'view-timeline', 'view-graph', 'view-search');
+  layout.classList.remove('view-atlas', 'view-search');
   layout.classList.add(`view-${view}`);
-
-  document.querySelectorAll('.view-tab').forEach(b =>
-    b.classList.toggle('active', b.dataset.view === view));
 
   document.getElementById('detail').hidden       = (view !== 'atlas');
   document.getElementById('map-panel').hidden    = (view !== 'atlas');
-  document.getElementById('timeline-panel').hidden = (view !== 'timeline');
-  document.getElementById('graph-panel').hidden   = (view !== 'graph');
-  document.getElementById('search-panel').hidden  = (view !== 'search');
-
-  if (view === 'timeline') {
-    requestAnimationFrame(renderTimeline);
-  }
-  if (view === 'graph') {
-    requestAnimationFrame(renderGraph);
-  }
+  document.getElementById('graph-panel').hidden  = (view !== 'atlas');
+  document.getElementById('search-panel').hidden = (view !== 'search');
 }
 
-function bindViewTabs() {
-  document.querySelectorAll('.view-tab').forEach(btn => {
-    btn.addEventListener('click', () => setView(btn.dataset.view));
-  });
+function bindSearchClose() {
   document.getElementById('search-close')?.addEventListener('click', () => {
     document.getElementById('search').value = '';
     STATE.filters.query = '';
@@ -337,6 +323,7 @@ function selectGenre(id) {
   loadWikipedia(g);
   loadMBArtists(g);
   loadCoverWall(g);
+  renderLineageGraph(g);
 }
 
 function renderDetail(g) {
@@ -769,214 +756,158 @@ async function fetchArtistCover(artistName) {
   try {
     let mbid = STATE.mbidCache.get(artistName);
     if (!mbid) {
-      const url1 = `https://musicbrainz.org/ws/2/artist?query=${encodeURIComponent(artistName)}&fmt=json&limit=1`;
+      const url1 = `https://musicbrainz.org/ws/2/artist?query=${encodeURIComponent(artistName)}&fmt=json&limit=3`;
       const data1 = await fetch(url1, { headers: { Accept: 'application/json' } }).then(r => r.json());
-      mbid = data1.artists?.[0]?.id;
+      // Pick highest-scored music artist
+      const artists = (data1.artists || []).filter(a => !a.type || a.type !== 'Character');
+      mbid = artists[0]?.id;
       if (mbid) STATE.mbidCache.set(artistName, mbid);
     }
     if (!mbid) throw 0;
 
-    const url2 = `https://musicbrainz.org/ws/2/release-group?artist=${mbid}&type=album&fmt=json&limit=8`;
+    // Fetch a wider set of release-groups, prioritise albums
+    const url2 = `https://musicbrainz.org/ws/2/release-group?artist=${mbid}&type=album&fmt=json&limit=20`;
     const data2 = await fetch(url2, { headers: { Accept: 'application/json' } }).then(r => r.json());
-    const groups = data2['release-groups'] || [];
+    let groups = data2['release-groups'] || [];
+    // Sort by first-release-date (descending = most recent first, more likely to have art)
+    groups = groups.sort((a, b) => (b['first-release-date'] || '').localeCompare(a['first-release-date'] || ''));
     if (!groups.length) throw 0;
 
-    const coverUrl = `https://coverartarchive.org/release-group/${groups[0].id}/front-250`;
-    STATE.coverCache.set(artistName, coverUrl);
-    return coverUrl;
+    // Probe up to 6 release-groups in parallel for actual front-cover availability
+    const candidates = groups.slice(0, 6);
+    const probes = await Promise.all(candidates.map(async rg => {
+      try {
+        const r = await fetch(`https://coverartarchive.org/release-group/${rg.id}`);
+        if (!r.ok) return null;
+        const d = await r.json();
+        const front = (d.images || []).find(i => i.front) || (d.images || [])[0];
+        if (!front) return null;
+        return front.thumbnails?.['250'] || front.thumbnails?.small || front.thumbnails?.large || front.image;
+      } catch { return null; }
+    }));
+    const url = probes.find(Boolean);
+    STATE.coverCache.set(artistName, url || null);
+    return url || null;
   } catch (e) {
     STATE.coverCache.set(artistName, null);
     return null;
   }
 }
 
-/* ------------------------ Timeline View ------------------------ */
-function renderTimeline() {
-  const container = document.getElementById('timeline-canvas');
-  if (!container || !container.clientWidth) {
-    requestAnimationFrame(renderTimeline);
-    return;
-  }
-  container.innerHTML = '';
-
-  const margin = { top: 20, right: 30, bottom: 32, left: 150 };
-  const rowH = 38;
-  const w = container.clientWidth;
-  const h = STATE.categories.length * rowH + margin.top + margin.bottom;
-
-  const svg = d3.select(container).append('svg')
-    .attr('width', w).attr('height', h)
-    .style('display', 'block');
-
-  // Gradient axis: -500 to 1500 compressed (10% width), 1500 to 2026 expanded (90%)
-  // Use piecewise linear scale
-  const pivots = [-500, 1500, 2026];
-  const ranges = [margin.left, margin.left + (w - margin.left - margin.right) * 0.18, w - margin.right];
-  const x = year => {
-    if (year <= pivots[0]) return ranges[0];
-    if (year >= pivots[2]) return ranges[2];
-    if (year < pivots[1]) {
-      return ranges[0] + (year - pivots[0]) / (pivots[1] - pivots[0]) * (ranges[1] - ranges[0]);
-    }
-    return ranges[1] + (year - pivots[1]) / (pivots[2] - pivots[1]) * (ranges[2] - ranges[1]);
-  };
-  const yScale = id => margin.top + STATE.categories.findIndex(c => c.id === id) * rowH + rowH / 2;
-
-  // Tick marks
-  const ticks = [-500, 0, 500, 1000, 1500, 1700, 1850, 1900, 1950, 1980, 2000, 2020];
-  const axisG = svg.append('g').attr('class', 'tl-axis').attr('transform', `translate(0, ${h - margin.bottom})`);
-  axisG.append('line').attr('x1', margin.left).attr('x2', w - margin.right).attr('y1', 0).attr('y2', 0);
-  ticks.forEach(t => {
-    const xt = x(t);
-    axisG.append('line').attr('x1', xt).attr('x2', xt).attr('y1', 0).attr('y2', 5);
-    axisG.append('text').attr('x', xt).attr('y', 18).attr('text-anchor', 'middle').text(t);
+/* ------------------------ Lineage Graph (embedded in atlas right-bottom) ------------------------ */
+let _reverseInfluences = null;
+function getReverseInfluences() {
+  if (_reverseInfluences) return _reverseInfluences;
+  const m = {};
+  Object.entries(INFLUENCES).forEach(([child, parents]) => {
+    parents.forEach(p => { (m[p] = m[p] || []).push(child); });
   });
-  // Pivot indicator
-  const xPivot = x(1500);
-  svg.append('line')
-    .attr('x1', xPivot).attr('x2', xPivot)
-    .attr('y1', margin.top).attr('y2', h - margin.bottom)
-    .attr('stroke', 'rgba(240,165,0,.15)').attr('stroke-dasharray', '3,5');
-
-  // Category rows
-  STATE.categories.forEach(cat => {
-    const yc = yScale(cat.id);
-    svg.append('text')
-      .attr('class', 'tl-cat-label')
-      .attr('x', margin.left - 10)
-      .attr('y', yc + 4)
-      .attr('text-anchor', 'end')
-      .text(cat.name);
-    svg.append('line')
-      .attr('class', 'tl-row-line')
-      .attr('x1', margin.left).attr('x2', w - margin.right)
-      .attr('y1', yc).attr('y2', yc);
-  });
-
-  // Bars
-  const bars = svg.append('g').attr('class', 'tl-bars');
-  STATE.genres.forEach(g => {
-    const start = g.era?.start ?? -500;
-    const end = g.era?.end ?? 2026;
-    const x0 = x(start);
-    const x1 = x(end);
-    const yc = yScale(g.category);
-
-    const rect = bars.append('rect')
-      .attr('class', `tl-bar status-${g.status}` + (g.id === STATE.selected ? ' active' : ''))
-      .attr('x', x0).attr('y', yc - 6)
-      .attr('width', Math.max(x1 - x0, 3))
-      .attr('height', 12)
-      .attr('rx', 3)
-      .attr('opacity', .9)
-      .attr('data-id', g.id);
-    rect.append('title').text(`${g.name} · ${start}–${g.era?.end ?? '至今'} · ${STATUS_LABEL[g.status]}`);
-    rect.on('click', () => { selectGenre(g.id); });
-  });
+  _reverseInfluences = m;
+  return m;
 }
 
-/* ------------------------ Graph View ------------------------ */
-function buildInfluenceLinks() {
-  const ids = new Set(STATE.genres.map(g => g.id));
-  const links = [];
-  for (const [child, parents] of Object.entries(INFLUENCES)) {
-    if (!ids.has(child)) continue;
-    parents.forEach(parent => {
-      if (ids.has(parent)) links.push({ source: parent, target: child });
-    });
-  }
-  return links;
-}
-
-function renderGraph() {
+function renderLineageGraph(g) {
   const container = document.getElementById('graph-canvas');
-  if (!container || !container.clientWidth || !container.clientHeight) {
-    requestAnimationFrame(renderGraph);
+  const hint = document.getElementById('graph-hint');
+  if (!container) return;
+  if (!container.clientWidth || !container.clientHeight) {
+    requestAnimationFrame(() => renderLineageGraph(g));
     return;
   }
   container.innerHTML = '';
+
+  const ids = new Set(STATE.genres.map(x => x.id));
+  const parents = (INFLUENCES[g.id] || []).filter(p => ids.has(p));
+  const children = (getReverseInfluences()[g.id] || []).filter(c => ids.has(c));
+
+  if (!parents.length && !children.length) {
+    container.innerHTML = `<div style="height:100%; display:flex; align-items:center; justify-content:center; color:var(--text-dim); font-size:12px; text-align:center; padding:0 20px;">
+      ${escapeHtml(g.name)} 暂无明确的影响关系记录。<br/>这通常是独立成型或地域性强的传统流派。
+    </div>`;
+    if (hint) hint.textContent = '—';
+    return;
+  }
+
+  if (hint) hint.textContent = `${parents.length} 个前驱 · ${children.length} 个后继`;
 
   const w = container.clientWidth;
   const h = container.clientHeight;
 
-  const links = buildInfluenceLinks().map(l => ({ ...l }));
-  const nodes = STATE.genres.map(g => ({ ...g }));
+  // 3-column layout: ancestors | self | descendants
+  const colX = { parent: w * 0.18, self: w * 0.5, child: w * 0.82 };
+  const layoutNodes = (list, x) => {
+    const n = list.length;
+    return list.map((id, i) => {
+      const y = n === 1 ? h / 2 : 30 + i * (h - 60) / Math.max(n - 1, 1);
+      return { id, x, y, fx: x, fy: y };  // pin x to columns
+    });
+  };
+  const parentNodes = layoutNodes(parents, colX.parent);
+  const childNodes  = layoutNodes(children, colX.child);
+  const selfNode    = { id: g.id, x: colX.self, y: h / 2, fx: colX.self, fy: h / 2 };
+  const allNodes = [...parentNodes, selfNode, ...childNodes].map(n => {
+    const data = STATE.genres.find(x => x.id === n.id);
+    return { ...data, ...n };
+  });
+  const links = [
+    ...parents.map(p => ({ source: p, target: g.id })),
+    ...children.map(c => ({ source: g.id, target: c })),
+  ];
 
   const svg = d3.select(container).append('svg')
-    .attr('width', w).attr('height', h)
-    .style('display', 'block');
+    .attr('width', w).attr('height', h).style('display', 'block');
 
-  // Arrowhead
   svg.append('defs').append('marker')
-    .attr('id', 'gr-arrow').attr('viewBox', '0 -5 10 10')
-    .attr('refX', 14).attr('refY', 0)
+    .attr('id', 'lg-arrow').attr('viewBox', '0 -5 10 10')
+    .attr('refX', 12).attr('refY', 0)
     .attr('markerWidth', 5).attr('markerHeight', 5).attr('orient', 'auto')
-    .append('path').attr('d', 'M0,-4L8,0L0,4').attr('fill', 'rgba(180,200,220,.35)');
+    .append('path').attr('d', 'M0,-4L8,0L0,4').attr('fill', 'rgba(240,165,0,.55)');
 
-  const link = svg.append('g').selectAll('line')
-    .data(links).enter().append('line')
+  const linkSel = svg.append('g').selectAll('path')
+    .data(links).enter().append('path')
     .attr('class', 'gr-link')
-    .attr('marker-end', 'url(#gr-arrow)');
+    .attr('marker-end', 'url(#lg-arrow)')
+    .attr('fill', 'none')
+    .attr('stroke', 'rgba(240,165,0,.35)')
+    .attr('stroke-width', 1.4);
 
-  const node = svg.append('g').selectAll('circle')
-    .data(nodes).enter().append('circle')
-    .attr('class', d => `gr-node cat-${d.category}` + (d.id === STATE.selected ? ' active' : ''))
-    .attr('r', d => 5 + (d.influenceReach || 5) * 0.6)
-    .on('click', (e, d) => { selectGenre(d.id); })
-    .call(d3.drag()
-      .on('start', dragstarted).on('drag', dragged).on('end', dragended));
+  const nodeSel = svg.append('g').selectAll('circle')
+    .data(allNodes).enter().append('circle')
+    .attr('class', d => `gr-node cat-${d.category}` + (d.id === g.id ? ' active' : ''))
+    .attr('r', d => d.id === g.id ? 13 : 8)
+    .attr('cx', d => d.x).attr('cy', d => d.y)
+    .style('cursor', d => d.id === g.id ? 'default' : 'pointer')
+    .on('click', (e, d) => { if (d.id !== g.id) selectGenre(d.id); });
 
-  node.append('title').text(d => `${d.name} (${d.nameZh || ''}) — ${STATUS_LABEL[d.status]}`);
+  nodeSel.append('title').text(d => `${d.name} (${d.nameZh || ''}) — ${STATUS_LABEL[d.status]}`);
 
-  const label = svg.append('g').selectAll('text')
-    .data(nodes).enter().append('text')
+  svg.append('g').selectAll('text')
+    .data(allNodes).enter().append('text')
     .attr('class', 'gr-label')
-    .attr('dy', d => -(5 + (d.influenceReach || 5) * 0.6) - 3)
+    .attr('text-anchor', d => d.x < w * 0.3 ? 'start' : d.x > w * 0.7 ? 'end' : 'middle')
+    .attr('x', d => d.x < w * 0.3 ? d.x + 14 : d.x > w * 0.7 ? d.x - 14 : d.x)
+    .attr('y', d => d.id === g.id ? d.y + 28 : d.y + 4)
+    .style('fill', d => d.id === g.id ? 'var(--accent)' : 'var(--text-dim)')
+    .style('font-weight', d => d.id === g.id ? '600' : '500')
     .text(d => d.name);
 
-  const sim = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(70).strength(0.55))
-    .force('charge', d3.forceManyBody().strength(-220))
-    .force('center', d3.forceCenter(w / 2, h / 2))
-    .force('collide', d3.forceCollide(d => 12 + (d.influenceReach || 5) * 0.6))
-    .on('tick', () => {
-      link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-          .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-      node.attr('cx', d => d.x).attr('cy', d => d.y);
-      label.attr('x', d => d.x).attr('y', d => d.y);
-    });
-
-  function dragstarted(event, d) {
-    if (!event.active) sim.alphaTarget(0.3).restart();
-    d.fx = d.x; d.fy = d.y;
-  }
-  function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
-  function dragended(event, d) {
-    if (!event.active) sim.alphaTarget(0);
-    d.fx = null; d.fy = null;
-  }
-
-  // Hover: highlight neighbors
-  node.on('mouseenter', function (e, d) {
-    const neighbors = new Set([d.id]);
-    links.forEach(l => {
-      if (l.source.id === d.id) neighbors.add(l.target.id);
-      if (l.target.id === d.id) neighbors.add(l.source.id);
-    });
-    node.style('opacity', n => neighbors.has(n.id) ? 1 : 0.18);
-    link.style('opacity', l => l.source.id === d.id || l.target.id === d.id ? 1 : 0.08);
-    label.style('opacity', n => neighbors.has(n.id) ? 1 : 0.18);
-  });
-  container.addEventListener('mouseleave', () => {
-    node.style('opacity', 1); link.style('opacity', 1); label.style('opacity', 1);
+  // Curve the arrows
+  linkSel.attr('d', l => {
+    const s = allNodes.find(n => n.id === l.source);
+    const t = allNodes.find(n => n.id === l.target);
+    const mx = (s.x + t.x) / 2;
+    return `M${s.x},${s.y} Q${mx},${(s.y + t.y) / 2 - 20} ${t.x},${t.y}`;
   });
 
-  // Category legend (overlay)
-  const legend = document.createElement('div');
-  legend.className = 'graph-cat-legend';
-  legend.innerHTML = STATE.categories.map(c =>
-    `<span class="lc-${c.id}">${c.name}</span>`).join('');
-  container.appendChild(legend);
+  // Column labels at top
+  svg.append('text')
+    .attr('x', colX.parent).attr('y', 14).attr('text-anchor', 'middle')
+    .style('fill', 'var(--text-dim)').style('font-size', '10px').style('letter-spacing', '1px')
+    .text(parents.length ? '前驱 / 影响来源' : '');
+  svg.append('text')
+    .attr('x', colX.child).attr('y', 14).attr('text-anchor', 'middle')
+    .style('fill', 'var(--text-dim)').style('font-size', '10px').style('letter-spacing', '1px')
+    .text(children.length ? '后继 / 衍生流派' : '');
 }
 
 /* ------------------------ Search Results View ------------------------ */
