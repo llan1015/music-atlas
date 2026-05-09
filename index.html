@@ -36,10 +36,15 @@
         <input id="era-end" type="number" value="2026" step="10" />
       </div>
       <button id="reset-filters" type="button">重置</button>
+      <div class="view-tabs" role="tablist" aria-label="视图切换">
+        <button class="view-tab active" data-view="atlas" type="button">Atlas</button>
+        <button class="view-tab" data-view="timeline" type="button">时间轴</button>
+        <button class="view-tab" data-view="graph" type="button">关系图</button>
+      </div>
     </div>
   </header>
 
-  <main class="layout">
+  <main class="layout view-atlas" id="layout">
     <aside class="sidebar" id="sidebar">
       <nav id="tree" aria-label="流派树"></nav>
       <p class="counts" id="counts"></p>
@@ -59,12 +64,36 @@
       <div class="empty-state">从左侧选择一个流派以查看详情。</div>
     </section>
 
-    <section class="map-panel">
+    <section class="map-panel" id="map-panel">
       <div class="map-header">
         <h2>影响力地图</h2>
         <span id="map-legend" class="map-legend"></span>
       </div>
       <div id="map"></div>
+    </section>
+
+    <section class="timeline-panel" id="timeline-panel" hidden>
+      <div class="panel-header">
+        <h2>音乐流派时间轴</h2>
+        <span class="panel-hint">每条色带代表一个流派的活跃时期 · 点击跳到详情</span>
+      </div>
+      <div id="timeline-canvas"></div>
+    </section>
+
+    <section class="graph-panel" id="graph-panel" hidden>
+      <div class="panel-header">
+        <h2>流派影响关系图</h2>
+        <span class="panel-hint">连线 = 影响方向（前驱→后继） · 节点大小 = 影响力 · 拖拽可调整 · 颜色区分类别</span>
+      </div>
+      <div id="graph-canvas"></div>
+    </section>
+
+    <section class="search-panel" id="search-panel" hidden>
+      <div class="panel-header">
+        <h2 id="search-title">搜索结果</h2>
+        <button class="panel-close" id="search-close" type="button">返回 Atlas</button>
+      </div>
+      <div id="search-canvas"></div>
     </section>
   </main>
 
