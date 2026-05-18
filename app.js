@@ -554,8 +554,8 @@ function renderTimeline(g) {
     <div class="timeline">
       <div class="timeline-bar">
         <div class="timeline-fill" style="left:${left}%; width:${Math.max(width,0.6)}%;"></div>
-        <span class="timeline-label" style="left:${left}%;">${start}</span>
-        <span class="timeline-label" style="left:${left + width}%;">${g.era?.end ?? 'now'}</span>
+        <span class="timeline-label start" style="left:${left}%;">${start}</span>
+        <span class="timeline-label end" style="left:${left + width}%;">${g.era?.end ?? 'now'}</span>
       </div>
     </div>
   `;
